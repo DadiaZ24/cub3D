@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddias-fe <ddias-fe@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: joao-ppe <joao-ppe@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/09 14:58:48 by ddias-fe          #+#    #+#             */
-/*   Updated: 2024/04/09 14:58:48 by ddias-fe         ###   ########.fr       */
+/*   Created: 2023/04/14 18:29:31 by joao-ppe          #+#    #+#             */
+/*   Updated: 2023/05/04 15:12:31 by joao-ppe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	char	*newstring;
-	size_t	i;
+	char			*sub;
 
 	if (!s)
 		return (NULL);
@@ -23,16 +22,10 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		len = ft_strlen(s) - start;
 	if (start > ft_strlen(s))
 		return (ft_strdup(""));
-	newstring = (char *)malloc(sizeof(char) * (len + 1));
-	if (!newstring)
-		return (0);
-	i = 0;
-	while (s[start] && i < len)
-	{
-		newstring[i] = s[start];
-		start++;
-		i++;
-	}
-	newstring[i] = '\0';
-	return (newstring);
+	sub = malloc(sizeof(char) * (len + 1));
+	if (!sub)
+		return (NULL);
+	ft_memcpy(sub, &s[start], len);
+	sub[len] = '\0';
+	return (sub);
 }

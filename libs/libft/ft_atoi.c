@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddias-fe <ddias-fe@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: joao-ppe <joao-ppe@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/09 14:53:32 by ddias-fe          #+#    #+#             */
-/*   Updated: 2024/04/09 14:53:32 by ddias-fe         ###   ########.fr       */
+/*   Created: 2023/04/12 15:35:02 by joao-ppe          #+#    #+#             */
+/*   Updated: 2023/05/04 15:08:55 by joao-ppe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,24 @@
 int	ft_atoi(const char *str)
 {
 	int	i;
-	int	sign;
+	int	signal;
 	int	result;
 
 	i = 0;
-	sign = 1;
 	result = 0;
-	while ((str[i] <= 13 && str[i] >= 9) || (str[i] == 32))
+	signal = 1;
+	while ((str[i] >= 9 && str[i] <= 13) || (str[i] == 32))
 		i++;
-	if (str[i] == '-')
-		sign *= -1;
-	if (str[i] == '-' || str[i] == '+')
-		i++;
-	while (str[i] >= '0' && str[i] <= '9')
+	if (str[i] == 43 || str[i] == 45)
 	{
-		result = (result * 10) + (str[i] - 48);
+		if (str[i] == 45)
+			signal = -1;
 		i++;
 	}
-	return (result * sign);
+	while (str[i] >= 48 && str[i] <= 57)
+	{
+		result = result * 10 + (str[i] - 48);
+		i++;
+	}
+	return (result * signal);
 }

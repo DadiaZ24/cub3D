@@ -6,7 +6,7 @@
 /*   By: joao-ppe <joao-ppe@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:15:38 by ddias-fe          #+#    #+#             */
-/*   Updated: 2025/03/11 14:30:50 by joao-ppe         ###   ########.fr       */
+/*   Updated: 2025/03/12 11:46:14 by joao-ppe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,10 @@ typedef enum {
 
 typedef struct data
 {
-	char		**map;
-	int			columns;
-	int			rows;
-	map_char	spawn;
+	char					**map;
+	unsigned int			columns;
+	unsigned int			rows;
+	map_char				spawn;
 
 }	t_data;
 
