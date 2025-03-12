@@ -3,12 +3,14 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ptorrao- <ptorrao-@student.42porto.com>    +#+  +:+       +#+         #
+#    By: joao-ppe <joao-ppe@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/10/24 16:55:42 by ddias-fe          #+#    #+#              #
-#    Updated: 2024/12/10 15:59:07 by ptorrao-         ###   ########.fr        #
+#    Created: 2025/03/06 16:16:15 by joao-ppe          #+#    #+#              #
+#    Updated: 2025/03/06 16:16:15 by joao-ppe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+
 
 # _______________________________________________________________
 #|___________________________[VARIABLES]_________________________|
@@ -24,11 +26,11 @@ LIBFT			= libs/libft/libft.a
 
 GENERAL			= main.c
 
-PARSING			=
+PARSING			= map_parsing.c
 
 EXECUTOR		=
 
-UTILS			= 
+UTILS			= free_utils.c
 
 # _______________________________________________________________
 #|___________________________[SRC FILES]_________________________|
@@ -37,9 +39,11 @@ UTILS			=
 SRC				= $(GENERAL)\
 					$(PARSING)\
 					$(EXECUTOR)\
+					$(UTILS)\
 
 VPATH 			= src\
 					src/parsing\
+					src/parsing/map\
 					src/utils\
 					src/executor\
 
@@ -81,7 +85,7 @@ gdb:
 	gdb -tui ./$(NAME)
 
 download:
-	@wget https://cdn.intra.42.fr/document/document/25858/minilibx-linux.tgz --no-check-certificate
+	@wget https://cdn.intra.42.fr/document/document/31395/minilibx-linux.tgz --no-check-certificate
 	@tar -xzf minilibx-linux.tgz -C libs
 	@rm minilibx-linux.tgz
 

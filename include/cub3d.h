@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddias-fe <ddias-fe@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: joao-ppe <joao-ppe@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:15:38 by ddias-fe          #+#    #+#             */
-/*   Updated: 2025/02/27 12:16:42 by ddias-fe         ###   ########.fr       */
+/*   Updated: 2025/03/11 14:30:50 by joao-ppe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@
 //|________________________[DEFINE OTHERS]________________________|
 //|_______________________________________________________________|
 
-# define FILE_EXTENSION "cub"
+# define FILE_EXTENSION ".cub"
 
 //________________________________________________________________
 //|_____________________________[ENUMS]___________________________|
@@ -74,19 +74,24 @@ typedef enum {
 //|________________________[DATA STRUCTURES]______________________|
 //|_______________________________________________________________|
 
-typedef struct s_map_parser
+typedef struct data
 {
 	char		**map;
-	int			col_size;
-	int			row_size;
-	map_char	player_spawn;
-	
-}	t_map_parser;
+	int			columns;
+	int			rows;
+	map_char	spawn;
+
+}	t_data;
 
 
 //________________________________________________________________
 //|______________________[FUNCTION PROTOTYPES]____________________|
 //|_______________________________________________________________|
 
+// MAP PARSING
+bool 	map_char_parser(char *path);
+
+// FREE UTILS
+void	free_array(char **arr);
 
 #endif
