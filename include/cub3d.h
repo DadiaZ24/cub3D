@@ -6,7 +6,7 @@
 /*   By: ddias-fe <ddias-fe@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:15:38 by ddias-fe          #+#    #+#             */
-/*   Updated: 2025/03/25 13:51:57 by ddias-fe         ###   ########.fr       */
+/*   Updated: 2025/03/25 15:10:03 by ddias-fe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include "../libs/libft/libft.h"
 # include <X11/keysym.h>
 # include <X11/X.h>
+# include <math.h>
 
 //________________________________________________________________
 //|_________________________[DEFINE COLORS]_______________________|
@@ -113,6 +114,14 @@ typedef struct s_game
 	t_img					game_img;
 	void					*mlx;
 	void					*window;
+	double					player_x;
+	double					player_y;
+	double					player_dir_x;
+	double					player_dir_y;
+	double					plane_x;
+	double					plane_y;
+	double					camera_x;
+	double					camera_y;
 }	t_game;
 
 
