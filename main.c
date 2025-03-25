@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joao-ppe <joao-ppe@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: ddias-fe <ddias-fe@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:13:55 by ddias-fe          #+#    #+#             */
-/*   Updated: 2025/03/12 11:53:56 by joao-ppe         ###   ########.fr       */
+/*   Updated: 2025/03/25 14:44:29 by ddias-fe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,14 @@ int	count_lines(char *av)
 	return (rows);
 }
 
-t_data	*init(char *av)
+t_data	*init(char *av, t_data *data)
 {
-	t_data	*data;
 	char	**map_file;
 	char	*line;
 	int		fd;
 	int		i;
 
+	i = 0;
 	data = malloc(sizeof(t_data) * 1);
 	if (!data)
 		return (NULL);
@@ -63,7 +63,7 @@ t_data	*init(char *av)
 		line = get_next_line(fd);
 	}
 	i = 0;
-	set_data(&data, map_file);
+	//set_data(&data, map_file);
 	close(fd);
 	return (data);
 }
@@ -75,15 +75,19 @@ t_data	*init(char *av)
 
 int	main(int ac, char **av)
 {
-	t_data	*data;
+	t_data	data;
+	t_game	game;
 
-	data = NULL;
+	// TODO: DELETE WHEN WE HAVE THE SKY AND FLOOR PARSING COLORS
+	data.sky_color = 0x87CEEB;
+	data.floor_color = 0x654321;
 	if (ac != 2)
 		return (printf("%s%s\n", ERROR, ERROR_ARGC), 1);
-	data = init(av[1]);
-	if (!data)
-		return (printf("%s%s\n", ERROR, "Error fetching map data."), 1);
+	init(av[1], &data);
 	//map_char_parser(av[1]);
+	if (!executor(&game, &data))
+		return (printf("%s%s\n", ERROR, "Error executing game."), 1);
+	printf("Sai bem\n");
 	return (0);
 }
 

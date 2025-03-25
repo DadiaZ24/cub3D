@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joao-ppe <joao-ppe@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: ddias-fe <ddias-fe@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:15:38 by ddias-fe          #+#    #+#             */
-/*   Updated: 2025/03/12 11:46:14 by joao-ppe         ###   ########.fr       */
+/*   Updated: 2025/03/25 13:51:57 by ddias-fe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,16 @@
 //|_______________________________________________________________|
 
 # define FILE_EXTENSION ".cub"
+# define SCREEN_WIDTH 1920
+# define SCREEN_HEIGHT 945
+# define TEXTURE_N "./textures/n.xpm"
+# define TEXTURE_S "./textures/s.xpm"
+# define TEXTURE_E "./textures/e.xpm"
+# define TEXTURE_W "./textures/w.xpm"
+# define N 0
+# define S 1
+# define E 2
+# define W 3
 
 //________________________________________________________________
 //|_____________________________[ENUMS]___________________________|
@@ -74,19 +84,50 @@ typedef enum {
 //|________________________[DATA STRUCTURES]______________________|
 //|_______________________________________________________________|
 
-typedef struct data
+typedef struct s_data
 {
 	char					**map;
 	unsigned int			columns;
 	unsigned int			rows;
 	map_char				spawn;
+	int						sky_color;
+	int						floor_color;
 
 }	t_data;
+
+typedef struct s_img
+{
+	void	*mlx_img;
+	char	*addr;
+	int		bpp;
+	int		line_len;
+	int		endian;
+	int		width;
+	int		height;
+}	t_img;
+
+typedef struct s_game
+{
+	t_data					*data;
+	t_img					wall[4];
+	t_img					game_img;
+	void					*mlx;
+	void					*window;
+}	t_game;
 
 
 //________________________________________________________________
 //|______________________[FUNCTION PROTOTYPES]____________________|
 //|_______________________________________________________________|
+
+//EXECUTOR
+bool	render_background(t_game *game);
+int	render(t_game *game);
+bool	executor(t_game *game, t_data *data);
+bool	get_walls(t_game *game);
+bool	init_game_data(t_game *game, t_data *data);
+void	put_pixel(t_game *game, int x, int y, int color);
+
 
 // MAP PARSING
 bool 	map_char_parser(char *path);

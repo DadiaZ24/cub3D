@@ -19,16 +19,19 @@
 CC				= cc -g
 RM				= rm -rf
 CFLAGS			= -Wall -Wextra -Werror
+MLXFLAGS 		= -L./libs/minilibx-linux -lmlx -L/usr/lib -lm -lXext -lX11
 NAME			= cub3D
 
 INC				= -I./include
 LIBFT			= libs/libft/libft.a
+MLX 			= libs/minilibx-linux/libmlx.a
+
 
 GENERAL			= main.c
 
 PARSING			= map_parsing.c
 
-EXECUTOR		=
+EXECUTOR		= init.c render_utils.c executor.c 
 
 UTILS			= free_utils.c
 
@@ -46,6 +49,9 @@ VPATH 			= src\
 					src/parsing/map\
 					src/utils\
 					src/executor\
+					src/executor/app\
+					src/executor/map\
+					src/executor/utils\
 
 OBJ_DIR			= obj
 
@@ -63,11 +69,15 @@ $(OBJ_DIR):
 $(OBJ_DIR)/%.o: %.c
 	@$(CC) $(CFLAGS) $(INC) -c $< -o $@ 
 
-$(NAME):		$(OBJ_DIR) $(OBJ) $(LIBFT)
-				$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME)
+$(NAME):		$(OBJ_DIR) $(OBJ) $(MLX) $(LIBFT)
+				$(CC) $(CFLAGS) $(OBJ) $(LIBFT) $(MLXFLAGS) -o $(NAME)
 
 $(LIBFT):		libs/libft/*.c
 				make -C libs/libft
+
+$(MLX): 
+				make -C ./libs/minilibx-linux
+
 
 clean:
 				$(RM) $(OBJ_DIR)
@@ -85,7 +95,7 @@ gdb:
 	gdb -tui ./$(NAME)
 
 download:
-	@wget https://cdn.intra.42.fr/document/document/31395/minilibx-linux.tgz --no-check-certificate
+	@wget https://cdn.intra.42.fr/document/document/32396/minilibx-linux.tgz --no-check-certificate
 	@tar -xzf minilibx-linux.tgz -C libs
 	@rm minilibx-linux.tgz
 
