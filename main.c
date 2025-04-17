@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddias-fe <ddias-fe@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:13:55 by ddias-fe          #+#    #+#             */
-/*   Updated: 2025/03/25 14:44:29 by ddias-fe         ###   ########.fr       */
+/*   Updated: 2025/04/17 11:43:19 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,6 @@ int	main(int ac, char **av)
 	t_data	data;
 	t_game	game;
 
-	// TODO: DELETE WHEN WE HAVE THE SKY AND FLOOR PARSING COLORS
-	data.sky_color = 0x87CEEB;
-	data.floor_color = 0x654321;
 	if (ac != 2)
 		return (printf("%s%s\n", ERROR, ERROR_ARGC), 1);
 	init(av[1], &data);
