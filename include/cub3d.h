@@ -6,7 +6,7 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:15:38 by ddias-fe          #+#    #+#             */
-/*   Updated: 2025/04/17 11:42:05 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/05/22 10:12:14 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,17 +122,17 @@ typedef struct s_game
 
 //EXECUTOR
 bool	render_background(t_game *game);
-int	render(t_game *game);
+int		render(t_game *game);
 bool	executor(t_game *game, t_data *data);
 bool	get_walls(t_game *game);
 bool	init_game_data(t_game *game, t_data *data);
 void	put_pixel(t_game *game, int x, int y, int color);
 
 
-// MAP PARSING
+//MAP PARSING
 bool 	map_char_parser(char *path);
 
-// FREE UTILS
+//FREE UTILS
 void	free_array(char **arr);
 
 #endif
