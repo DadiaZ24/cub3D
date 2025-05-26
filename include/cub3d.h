@@ -6,7 +6,7 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:15:38 by ddias-fe          #+#    #+#             */
-/*   Updated: 2025/05/22 10:12:14 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/05/26 16:58:29 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,35 +84,54 @@ typedef enum {
 //|________________________[DATA STRUCTURES]______________________|
 //|_______________________________________________________________|
 
-typedef struct s_data
+typedef struct s_position
 {
-	char					**map;
-	unsigned int			columns;
-	unsigned int			rows;
-	map_char				spawn;
+	int						x;
+	int						y;
+}	t_position;
+
+/* typedef struct s_tile
+{
+	map_char 				type;
+	t_position			 	pos;
+	
+}t_tile; 
+se precisarmos de fazer track a algum elemento em particular em relacao ao seu tipo e posicao e.x sprites animados
+*/
+
+typedef struct s_scene
+{
+	char					**map; 			//layout do mapa passa para esta struct
+	t_position				map_size;		//largura e altura do mapa
+	t_position				spawn;			//posicao do spawn do player
+	char					player_dir;		//N,S,E ou W para a direcao do raycast
+	char					*n_path;		//textura desta direcao para passar p MiniLibx 
+	char					*s_path;		//textura desta direcao para passar p MiniLibx
+	char					*e_path;		//textura desta direcao para passar p MiniLibx
+	char					*w_path;		//textura desta direcao para passar p MiniLibx
 	int						sky_color;
 	int						floor_color;
-
-}	t_data;
+}	t_scene
 
 typedef struct s_img
 {
-	void	*mlx_img;
-	char	*addr;
-	int		bpp;
-	int		line_len;
-	int		endian;
-	int		width;
-	int		height;
+	void					*mlx_img;
+	char					*addr;
+	int						bpp;
+	int						line_len;
+	int						endian;
+	int						width;
+	int						height;
 }	t_img;
 
 typedef struct s_game
 {
-	t_data					*data;
-	t_img					wall[4];
+	t_scene					*scene;			//pointer para a struct do mapa
+	void					*mlx;			//instancia mlx
+	void					*window;		//janelinha
+
+	t_img					wall[4];		//carregar as imagens das texturas para renderizar dps
 	t_img					game_img;
-	void					*mlx;
-	void					*window;
 }	t_game;
 
 
