@@ -6,7 +6,7 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:13:55 by ddias-fe          #+#    #+#             */
-/*   Updated: 2025/04/17 11:43:19 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/05/26 20:16:40 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,24 @@ int	main(int ac, char **av)
 	return (0);
 }
 
+int	main(int ac, char **av)
+{
+	t_game	*game;
+
+	if (!ft_validate_args(ac, av))
+	{
+		printf("%s\n", ERROR_INVALID_ARGS);
+		exit(1);
+	}
+	game = forge_game(av[1]);
+	if(game != NULL)
+		render_game(game);
+	clean_exit(game);	
+	printf("Game executed successfully.\n");
+	return (0);
+}
+
+/* ************************************************************************** */
 
 /* To-do:
 

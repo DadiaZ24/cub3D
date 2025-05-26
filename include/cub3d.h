@@ -6,7 +6,7 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:15:38 by ddias-fe          #+#    #+#             */
-/*   Updated: 2025/05/26 16:58:29 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/05/26 20:26:52 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,19 @@
 //------------------- ERROR MESSAGES
 #define ERROR BLUE TOP_HUD RED "Error:\n" DEFAULT_COLOR \
 "%s\n\n" BLUE BOT_HUD DEFAULT_COLOR
-# define ERROR_ARGC BLUE "Invalid argument numbers. Usage:\
- ./cub3D [map]"
+
 # define ERROR_FILE_PATH_INVALID "Invalid file path."
+# define ERROR_FILE_EXTENSION "Invalid file extension. Expected .cub"
+# define ERROR_INVALID_ARGS "Invalid argument. Usage: ./cub3D [map]"
+# define ERROR_NBR_ARGS "Error: Invalid number of arguments\n"
+# define ERROR_INVALID_EXTENSION "Error: Invalid file extension\n"
+# define ERROR_MALLOC "Error: Memory allocation failed\n"
+# define ERROR_FD "Error: Invalid fd\n"
+# define ERROR_MLX_INIT "Error: MLX initialization failure\n"
+# define ERROR_MAP_PROCESSING "Error processing map\n"
+# define ERROR_MAP_RECT "Error: Map is not rectangular\n"
+# define ERROR_MAP_INVALID "Error: Invalid map\n"
+# define ERROR_MAP_PATH "Error: Path is invalid\n"
 
 //________________________________________________________________
 //|________________________[DEFINE OTHERS]________________________|
