@@ -6,7 +6,7 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:13:55 by ddias-fe          #+#    #+#             */
-/*   Updated: 2025/05/26 20:16:40 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/06/02 13:05:25 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,20 +73,20 @@ t_data	*init(char *av, t_data *data)
 
 } */
 
-int	main(int ac, char **av)
-{
-	t_data	data;
-	t_game	game;
+// int	main(int ac, char **av)
+// {
+// 	t_data	data;
+// 	t_game	game;
 
-	if (ac != 2)
-		return (printf("%s%s\n", ERROR, ERROR_ARGC), 1);
-	init(av[1], &data);
-	//map_char_parser(av[1]);
-	if (!executor(&game, &data))
-		return (printf("%s%s\n", ERROR, "Error executing game."), 1);
-	printf("Sai bem\n");
-	return (0);
-}
+// 	if (ac != 2)
+// 		return (printf("%s%s\n", ERROR, ERROR_ARGC), 1);
+// 	init(av[1], &data);
+// 	//map_char_parser(av[1]);
+// 	if (!executor(&game, &data))
+// 		return (printf("%s%s\n", ERROR, "Error executing game."), 1);
+// 	printf("Sai bem\n");
+// 	return (0);
+// }
 
 int	main(int ac, char **av)
 {
@@ -97,9 +97,9 @@ int	main(int ac, char **av)
 		printf("%s\n", ERROR_INVALID_ARGS);
 		exit(1);
 	}
-	game = forge_game(av[1]);
+	game = ft_init_game(av[1]);
 	if(game != NULL)
-		render_game(game);
+		ft_start_game(game);
 	clean_exit(game);	
 	printf("Game executed successfully.\n");
 	return (0);

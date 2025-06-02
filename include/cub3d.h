@@ -6,7 +6,7 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:15:38 by ddias-fe          #+#    #+#             */
-/*   Updated: 2025/05/26 20:26:52 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/06/02 21:02:10 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ se precisarmos de fazer track a algum elemento em particular em relacao ao seu t
 typedef struct s_scene
 {
 	char					**map; 			//layout do mapa passa para esta struct
+	char					**raw_lines;	// Copia das linhas do ficheiro .cub
 	t_position				map_size;		//largura e altura do mapa
 	t_position				spawn;			//posicao do spawn do player
 	char					player_dir;		//N,S,E ou W para a direcao do raycast
@@ -153,13 +154,24 @@ typedef struct s_game
 bool	render_background(t_game *game);
 int		render(t_game *game);
 bool	executor(t_game *game, t_data *data);
-bool	get_walls(t_game *game);
-bool	init_game_data(t_game *game, t_data *data);
+//bool	get_walls(t_game *game);
+//bool	init_game_data(t_game *game, t_data *data);
 void	put_pixel(t_game *game, int x, int y, int color);
 
 
-//MAP PARSING
-bool 	map_char_parser(char *path);
+//PARSING PMACHADO
+bool		ft_validate_args(int ac, char **av);
+t_game		*ft_init_game(char *path);
+t_game		*ft_create_game(void);
+void		ft_init_mlx(t_game *game);
+
+t_scene		*ft_create_scene(char *path);
+void		check_scene(char *path, t_scene *scene);
+
+t_scene		*create_map(char *file);
+t_scene		*ft_init_scene(char *file);
+
+void	ft_end(int nbr, t_game *g)
 
 //FREE UTILS
 void	free_array(char **arr);
