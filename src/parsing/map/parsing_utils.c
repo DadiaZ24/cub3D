@@ -6,89 +6,11 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 21:19:41 by pmachado          #+#    #+#             */
-/*   Updated: 2025/06/02 21:36:52 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/06/03 10:46:25 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void		check_scene(char *path, t_scene *scene);
-void		read_scene(char *path, t_scene *scene);
-void		check_for_empty(t_scene *scene);
-void		separate_map(t_scene *scene);
-
-int			get_map_start_index(char **lines);
-int			count_map_lines(char **lines);
-void		copy_map_lines(t_scene *scene, int start, int count);
-int			ft_get_max_line_length(char **map);
-bool		ft_is_map_line(char *line);
-int			ft_count_lines(char *path);
-
-int	get_map_start_index(char **lines)
-{
-	int	i;
-
-	i = 0;
-	while (lines[i])
-	{
-		if (ft_is_map_line(lines[i]))
-			return (i);
-		i++;
-	}
-	return (-1);
-}
-
-int	count_map_lines(char **lines)
-{
-	int	count;
-
-	count = 0;
-	while (lines[count])
-		count++;
-	return (count);
-}
-
-void	copy_map_lines(t_scene *scene, int start, int count)
-{
-	int	i;
-
-	scene->map = ft_calloc(count + 1, sizeof(char *));
-	if (!scene->map)
-		ft_end(ERROR_MALLOC, scene);
-	i = 0;
-	while (i < count)
-	{
-		scene->map[i] = ft_strdup(scene->raw_lines[start + i]);
-		if (!scene->map[i])
-			ft_end(ERROR_MALLOC, scene);
-		i++;
-	}
-	scene->map[i] = NULL;
-}
-
-int	ft_get_max_line_length(char **map)
-{
-	int	max;
-	int	len;
-	int	i;
-
-	max = 0;
-	i = 0;
-	while (map[i])
-	{
-		len = ft_strlen(map[i]);
-		if (len > max)
-			max = len;
-		i++;
-	}
-	return (max);
-}
-
-bool	ft_is_map_line(char *line)
-{
-	while (*line == ' ')
-		line++;
-	return (*line == '1' || *line == '0' || *line == 'N'
-		|| *line == 'S' || *line == 'E' || *line == 'W');
-}
+//----------read_scene-------------//
 
 int	ft_count_lines(char *path)
 {
@@ -107,4 +29,59 @@ int	ft_count_lines(char *path)
 	}
 	close(fd);
 	return (count);
+}
+
+char	*spaces_for_tabs(char *line)
+{
+	int		tabs;
+	int		size;
+	char	*new_line;
+
+	tabs = has_tabs(line);
+	if (!tabs)
+		return (line);
+	size = ft_strlen(line);
+	new_line = ft_calloc((size - tabs) + (tabs * 4) + 1, sizeof(char));
+	if (!new_line)
+		return (NULL);
+	change_tabs(line, new_line);
+	free(line);
+	return (new_line);
+}
+
+int	has_tabs(const char *line)
+{
+	int	count;
+
+	count = 0;
+	while (*line)
+	{
+		if (*line == '\t')
+			count++;
+		line++;
+	}
+	return (count);
+}
+
+void	change_tabs(const char *line, char *new_line)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (line[i])
+	{
+		if (line[i] == '\t')
+		{
+			new_line[j++] = ' ';
+			new_line[j++] = ' ';
+			new_line[j++] = ' ';
+			new_line[j++] = ' ';
+		}
+		else
+			new_line[j++] = line[i];
+		i++;
+	}
+	new_line[j] = '\0';
 }

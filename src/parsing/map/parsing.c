@@ -6,7 +6,7 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:41:10 by ddias-fe          #+#    #+#             */
-/*   Updated: 2025/06/02 21:33:14 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/06/03 10:45:00 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,17 @@ bool	ft_validate_args(int ac, char **av)
 	if (ac != 2)
 		ft_end(1, NULL);
 	if (ft_strlen(av[1]) < 4
-		|| ft_strncmp(av[1] + ft_strlen(av[1]) - 4, ".cub", 4) != 0)
+		|| ft_strncmp(av[1] + ft_strlen(av[1]) - 4, ".cub", 4) != 0)// verifica se o ficheiro tem a extensao .cub
 		ft_end(2, NULL);
 	return (true);
-	//ERROR_FILE_EXTENSION
 }
 
 void	check_scene(char *path, t_scene *scene)
 {
-	read_scene(path, scene);					// opens + reads .cub
-	check_for_empty(scene);						// empty lines?
+	read_scene(path, scene);					// ler o ficheiro .cub e 
+	check_for_empty(scene);						// verificar se esta vazio
 	separate_map(scene);						// extract map
+
 	validate_elements(scene);					// all metadata filled?
 	validate_map_characters(scene->map);		// only valid characters
 	validate_map(scene);						// check closure, player
@@ -45,13 +45,13 @@ void	read_scene(char *path, t_scene *scene)
 	if (fd < 0)
 		ft_end(4, scene);
 	line_count = ft_count_lines(path);
-	scene->raw_lines = ft_calloc(line_count + 1, sizeof(char *));
+	scene->raw_lines = ft_calloc(line_count + 1, sizeof(char *));//copia das linhas do ficheiro
 	if (!scene->raw_lines)
 		ft_end(ERROR_MALLOC, scene);
 	i = 0;
 	while ((line = get_next_line(fd)))
 	{
-		clean = replace_tabs(line);
+		clean = spaces_for_tabs(line); // substituir tabs por espacos
 		scene->raw_lines[i] = ft_strtrim(clean, "\n");
 		free(clean);
 		free(line);

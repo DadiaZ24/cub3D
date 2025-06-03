@@ -6,7 +6,7 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:15:38 by ddias-fe          #+#    #+#             */
-/*   Updated: 2025/06/02 21:02:10 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/06/03 10:30:24 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,11 +165,21 @@ t_game		*ft_init_game(char *path);
 t_game		*ft_create_game(void);
 void		ft_init_mlx(t_game *game);
 
-t_scene		*ft_create_scene(char *path);
 void		check_scene(char *path, t_scene *scene);
+void		read_scene(char *path, t_scene *scene);
+void		check_for_empty(t_scene *scene);
+void		separate_map(t_scene *scene);
 
-t_scene		*create_map(char *file);
-t_scene		*ft_init_scene(char *file);
+int			ft_count_lines(char *path);
+char		*spaces_for_tabs(char *line);
+int			has_tabs(const char *line);
+void		change_tabs(const char *line, char *new_line);
+
+int			get_map_start_index(char **lines);
+int			count_map_lines(char **lines);
+void		copy_map_lines(t_scene *scene, int start, int count);
+int			ft_get_max_line_length(char **map);
+bool		ft_is_map_line(char *line);
 
 void	ft_end(int nbr, t_game *g)
 
