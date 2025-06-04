@@ -6,7 +6,7 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:15:38 by ddias-fe          #+#    #+#             */
-/*   Updated: 2025/06/03 10:30:24 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/06/04 18:18:25 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,16 @@
 # define ERROR_FD "Error: Invalid fd\n"
 # define ERROR_MLX_INIT "Error: MLX initialization failure\n"
 # define ERROR_MAP_PROCESSING "Error processing map\n"
-# define ERROR_MAP_RECT "Error: Map is not rectangular\n"
 # define ERROR_MAP_INVALID "Error: Invalid map\n"
 # define ERROR_MAP_PATH "Error: Path is invalid\n"
+
+# define ERROR_MISS_ELEMTS "Error: Missing required elements"
+# define ERROR_DUPLICATE_ELEMENT "Error: Duplicate element in .cub file"
+# define ERROR_UNKNOWN_ELEMENT "Error: Unknown identifier in .cub file"
+# define ERROR_EMPTY_FILE "Error: File is empty"
+# define ERROR_MAP_NOT_CLOSED "Error: Map is not closed"
+# define ERROR_PLAYER_NOT_FOUND "Error: Player start position not found"
+# define ERROR_INVALID_COLOR "Error: Invalid RGB color format"
 
 //________________________________________________________________
 //|________________________[DEFINE OTHERS]________________________|
@@ -159,29 +166,49 @@ bool	executor(t_game *game, t_data *data);
 void	put_pixel(t_game *game, int x, int y, int color);
 
 
-//PARSING PMACHADO
+//VALIDATION
 bool		ft_validate_args(int ac, char **av);
+//INITIATE STRUCTS
 t_game		*ft_init_game(char *path);
 t_game		*ft_create_game(void);
 void		ft_init_mlx(t_game *game);
-
+//PARSING
 void		check_scene(char *path, t_scene *scene);
 void		read_scene(char *path, t_scene *scene);
 void		check_for_empty(t_scene *scene);
 void		separate_map(t_scene *scene);
+void		validate_elements(t_scene *scene);
 
+
+			//----------read_scene-----------//
 int			ft_count_lines(char *path);
 char		*spaces_for_tabs(char *line);
 int			has_tabs(const char *line);
 void		change_tabs(const char *line, char *new_line);
-
+			//----------separate_map---------//
 int			get_map_start_index(char **lines);
 int			count_map_lines(char **lines);
 void		copy_map_lines(t_scene *scene, int start, int count);
 int			ft_get_max_line_length(char **map);
 bool		ft_is_map_line(char *line);
+			//----------validate_elements---------//
+void		parse_textures(t_scene *scene, char *line);
+void		parse_NO(t_scene *scene, char *line);
+void		parse_SO(t_scene *scene, char *line);
+void		parse_WE(t_scene *scene, char *line);
+void		parse_EA(t_scene *scene, char *line);
+void		parse_colors(t_scene *scene, char *line);
+int			parse_rgb(const char *line);
+char		*trim_and_check_digit(char *str);
+void		free_rgb_parts(char **arr, char **trimmed);
+bool		ft_isdigit_str(char *str);
 
-void	ft_end(int nbr, t_game *g)
+//ERROR
+void	ft_end(int nbr, t_game *g);
+void	free_all(t_game *g);
+void	free_scene(t_scene *scene);
+void	free_array(char **arr, int max);
+int		ft_exit(t_game *g);
 
 //FREE UTILS
 void	free_array(char **arr);

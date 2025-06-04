@@ -6,7 +6,7 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 20:23:43 by pmachado          #+#    #+#             */
-/*   Updated: 2025/05/26 20:29:01 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/06/04 17:37:04 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,66 +27,95 @@ void	ft_end(int nbr, t_game *g)
 	else if (nbr == 6)
 		printf("%s\n", ERROR_MAP_PROCESSING);
 	else if (nbr == 7)
-		printf("%s\n", ERROR_MAP_RECT);
-	else if (nbr == 8)
 		printf("%s\n", ERROR_MAP_INVALID);
-	else if (nbr == 9)
+	else if (nbr == 8)
 		printf("%s\n", ERROR_MAP_PATH);
+
+	//new error messages needed for parsing .cub
+	else if (nbr == 9)
+		printf("%s\n", ERROR_MISS_ELEMTS);
+	else if (nbr == 10)
+		printf("%s\n", ERROR_DUPLICATE_ELEMENT);
+	else if (nbr == 11)
+		printf("%s\n", ERROR_UNKNOWN_ELEMENT);
+	else if (nbr == 12)
+		printf("%s\n", ERROR_EMPTY_FILE);
+	else if (nbr == 13)
+		printf("%s\n", ERROR_MAP_NOT_CLOSED);
+	else if (nbr == 14)
+		printf("%s\n", ERROR_PLAYER_NOT_FOUND);
+	else if (nbr == 15)
+		printf("%s\n", ERROR_INVALID_COLOR);
 	if (nbr != 2 && nbr != 1)
 		free_all(g);
 	exit(1);
 }
 
 //* *******************************-Para acertar ainda-********************************************/
-
-/* 
+ 
 void	free_all(t_game *g)
 {
+	int	i;
+
 	if (!g)
 		return ;
-	if (g->world_map)
-		free_map(g->world_map);
-	if (g->art_asset.canvas)
-		mlx_destroy_image(g->pixel_magic, g->art_asset.canvas);
-	if (g->view_portal)
-		mlx_destroy_window(g->pixel_magic, g->view_portal);
-	if (g->pixel_magic)
+	if (g->scene)
+		free_scene(g->scene);
+	if (g->game_img.mlx_img)
+		mlx_destroy_image(g->mlx, g->game_img.mlx_img);
+	i = 0;
+	while (i < 4)
 	{
-		mlx_destroy_display(g->pixel_magic);
-		free(g->pixel_magic);
+		if (g->wall[i].mlx_img)
+			mlx_destroy_image(g->mlx, g->wall[i].mlx_img);
+		i++;
+	}
+	if (g->window)
+		mlx_destroy_window(g->mlx, g->window);
+	if (g->mlx)
+	{
+		mlx_destroy_display(g->mlx);
+		free(g->mlx);
 	}
 	free(g);
 }
 
-void	free_map(t_map *world_map)
+void	free_scene(t_scene *scene)
 {
 	int	i;
 
-	if (!world_map || !world_map->layout)
+	if (!scene)
 		return ;
-	i = 0;
-	while (world_map->layout[i])
+	if (scene->map)
 	{
-		free(world_map->layout[i]);
-		i++;
+		i = 0;
+		while (scene->map[i])
+			free(scene->map[i++]);
+		free(scene->map);
 	}
-	free(world_map->layout);
-	free(world_map);
+	if (scene->raw_lines)
+	{
+		i = 0;
+		while (scene->raw_lines[i])
+			free(scene->raw_lines[i++]);
+		free(scene->raw_lines);
+	}
+	free(scene->n_path);
+	free(scene->s_path);
+	free(scene->e_path);
+	free(scene->w_path);
+	free(scene);
 }
 
-void	free_array(char **array, int row)
+void	free_array(char **arr, int max)
 {
-	int	i;
+	int i = 0;
 
-	if (!array)
+	if (!arr)
 		return ;
-	i = 0;
-	while (i < row)
-	{
-		free(array[i]);
-		i++;
-	}
-	free(array);
+	while (i < max && arr[i])
+		free(arr[i++]);
+	free(arr);
 }
 
 int	ft_exit(t_game *g)
@@ -94,4 +123,3 @@ int	ft_exit(t_game *g)
 	free_all(g);
 	exit(EXIT_SUCCESS);
 }
- */

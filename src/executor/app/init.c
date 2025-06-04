@@ -6,7 +6,7 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 17:43:31 by pmachado          #+#    #+#             */
-/*   Updated: 2025/06/02 20:29:59 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/06/04 16:00:56 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 t_game	ft_init_game(char *map_path);
 t_game	*ft_create_game(void);
 void	ft_init_mlx(t_game *game);
-
 
 t_game	ft_init_game(char *map_path)
 {
@@ -72,6 +71,8 @@ t_scene	*ft_create_scene(char *path)
 	scene = ft_calloc(1, sizeof(t_scene));
 	if (!scene)
 		ft_end(3, NULL);
+	scene->floor_color = -1; //inicializar cores
+	scene->sky_color = -1; //inicializar cores
 	check_scene(path, scene); //ler o ficheiro .cub e fazer o parsing
 	parse_map(scene); //validar o mapa e definir a posicao do player
 	return (scene);
