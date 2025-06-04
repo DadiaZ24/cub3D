@@ -6,7 +6,7 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 13:40:15 by pmachado          #+#    #+#             */
-/*   Updated: 2025/06/04 13:42:07 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/06/04 23:02:09 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	check_scene(char *path, t_scene *scene)
 	read_scene(path, scene);					// ler o ficheiro .cub e copiar as linhas para scene->raw_lines
 	check_for_empty(scene);						// verificar se esta vazio
 	separate_map(scene);						// extract map
-
 	validate_elements(scene);					// all metadata filled?
 	validate_map_characters(scene->map);		// only valid characters
 	validate_map(scene);						// check closure, player
@@ -41,8 +40,8 @@ void	read_scene(char *path, t_scene *scene)
 	i = 0;
 	while ((line = get_next_line(fd)))
 	{
-		clean = spaces_for_tabs(line); // substituir tabs por espacos
-		scene->raw_lines[i] = ft_strtrim(clean, "\n"); // remove \n do final da linha
+		clean = spaces_for_tabs(line); //substituir tabs por espacos
+		scene->raw_lines[i] = ft_strtrim(clean, "\n"); //remove \n do final da linha
 		free(clean);
 		free(line);
 		if (!scene->raw_lines[i])
@@ -71,4 +70,20 @@ void	separate_map(t_scene *scene)
 	scene->map_size.y = count; //define a altura do mapa
 	copy_map_lines(scene, start, count); // copia as linhas do mapa para scene->map
 	scene->map_size.x = ft_get_max_line_length(scene->map);
+}
+
+void	validate_elements(t_scene *scene)
+{
+	int	i;
+
+	i = 0;
+	while (scene->raw_lines[i] && !ft_is_map_line(scene->raw_lines[i])) //enquanto nao for o inicio do mapa
+	{
+		if (scene->raw_lines[i][0] != '\0')
+			parse_textures(scene, scene->raw_lines[i]); //retirar texturas e cores
+		i++;
+	}
+	if (!scene->n_path || !scene->s_path || !scene->e_path || !scene->w_path
+		|| scene->floor_color == -1 || scene->sky_color == -1)
+		ft_end(9, scene); //estes campos devem vir populados
 }

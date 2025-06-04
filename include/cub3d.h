@@ -6,7 +6,7 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:15:38 by ddias-fe          #+#    #+#             */
-/*   Updated: 2025/06/04 18:18:25 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/06/04 23:39:49 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,7 +178,7 @@ void		read_scene(char *path, t_scene *scene);
 void		check_for_empty(t_scene *scene);
 void		separate_map(t_scene *scene);
 void		validate_elements(t_scene *scene);
-
+void		validate_map_characters(char **map);
 
 			//----------read_scene-----------//
 int			ft_count_lines(char *path);
@@ -202,6 +202,14 @@ int			parse_rgb(const char *line);
 char		*trim_and_check_digit(char *str);
 void		free_rgb_parts(char **arr, char **trimmed);
 bool		ft_isdigit_str(char *str);
+			//----------validate_map_chars-------//
+bool		is_valid_map_char(char c);
+			//----------validate_map-------------//
+void		pad_map_lines(t_scene *scene);
+void		find_player(t_scene *scene);
+
+
+
 
 //ERROR
 void	ft_end(int nbr, t_game *g);

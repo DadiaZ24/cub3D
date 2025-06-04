@@ -6,7 +6,7 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 20:23:43 by pmachado          #+#    #+#             */
-/*   Updated: 2025/06/04 17:37:04 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/06/04 23:20:43 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ void	ft_end(int nbr, t_game *g)
 		printf("%s\n", ERROR_MAP_INVALID);
 	else if (nbr == 8)
 		printf("%s\n", ERROR_MAP_PATH);
-
-	//new error messages needed for parsing .cub
 	else if (nbr == 9)
 		printf("%s\n", ERROR_MISS_ELEMTS);
 	else if (nbr == 10)

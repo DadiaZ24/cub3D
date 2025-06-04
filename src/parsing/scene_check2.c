@@ -6,24 +6,88 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 13:53:41 by pmachado          #+#    #+#             */
-/*   Updated: 2025/06/04 18:10:04 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/06/04 23:38:34 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	validate_elements(t_scene *scene)
+void	validate_map_characters(char **map)
 {
-	int	i;
+	int	y;
+	int	x;
 
-	i = 0;
-	while (scene->raw_lines[i] && !ft_is_map_line(scene->raw_lines[i])) //enquanto nao for o inicio do mapa
+	y = 0;
+	while (map[y])
 	{
-		if (scene->raw_lines[i][0] != '\0')
-			parse_textures(scene, scene->raw_lines[i]); //retirar texturas e cores
-		i++;
+		x = 0;
+		while (map[y][x])
+		{
+			if (!is_valid_map_char(map[y][x]))
+				ft_end(7, NULL);
+			x++;
+		}
+		y++;
 	}
-	if (!scene->n_path || !scene->s_path || !scene->e_path || !scene->w_path
-		|| scene->floor_color == -1 || scene->sky_color == -1)
-		ft_end(9, scene); //estes campos devem vir populados
 }
+
+void	validate_map(t_scene *scene)
+{
+	pad_map(scene);				//tornar o mapa retangular
+	find_player(scene);			//gravar posicao do player e direcao
+	check_closed_map(scene);	//floodfill e ver se o mapa esta fechado
+}
+
+void	pad_map_lines(t_scene *scene)
+{
+	int		y;
+	int		len;
+	char	*new_line;
+
+	y = 0;
+	while (scene->map[y])
+	{
+		len = ft_strlen(scene->map[y]); //len da linha atual
+		if (len < scene->map_size.x) //se len for menor do que a maior linha do mapa
+		{
+			new_line = ft_calloc(scene->map_size.x + 1, sizeof(char)); //alocar memoria para a nova linha
+			if (!new_line)
+				ft_end(3, scene);
+			ft_memset(new_line, ' ', scene->map_size.x); //preenche a string com espaços
+			ft_memcpy(new_line, scene->map[y], len); //copia a linha atual para a nova linha
+			free(scene->map[y]); //liberta a linha antiga
+			scene->map[y] = new_line; //substitui a linha antiga pela nova
+		}
+		y++;
+	}
+}
+
+void	find_player(t_scene *scene)
+{
+	int		y;
+	int		x;
+	bool	found;
+
+	found = false;
+	y = 0;
+	while (scene->map[y])
+	{
+		x = 0;
+		while (scene->map[y][x])
+		{
+			if (ft_strchr("NSEW", scene->map[y][x]))
+			{
+				if (found)
+					ft_end(ERROR_DUPLICATE_PLAYER, scene);
+				set_spawn(scene, x, y, scene->map[y][x]);
+				scene->map[y][x] = '0'; //substitui a posicao do player por '0'
+				found = true;
+			}
+			x++;
+		}
+		y++;
+	}
+	if (!found)
+		ft_end(14, scene);
+}
+
