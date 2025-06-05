@@ -6,45 +6,40 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 20:23:43 by pmachado          #+#    #+#             */
-/*   Updated: 2025/06/04 23:20:43 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/06/05 11:54:22 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+static const char *print_error_msg(int nbr)
+{
+	static const char *messages[] = {
+		"Invalid number of arguments",
+		"Invalid file extension",
+		"Malloc failed",
+		"File descriptor error",
+		"MLX initialization failed",
+		"Map processing error",
+		"Map invalid",
+		"Map path error",
+		"Missing elements",
+		"Duplicate element",
+		"Unknown element",
+		"Empty file",
+		"Map not closed",
+		"Player not found",
+		"Invalid color"
+	};
+	if (nbr < 1 || nbr > 15)
+		return ("Unknown error");
+	return (messages[nbr - 1]);
+}
+
 void	ft_end(int nbr, t_game *g)
 {
-	if (nbr == 1)
-		printf("%s\n", ERROR_NBR_ARGS);
-	else if (nbr == 2)
-		printf("%s\n", ERROR_INVALID_EXTENSION);
-	else if (nbr == 3)
-		printf("%s\n", ERROR_MALLOC);
-	else if (nbr == 4)
-		printf("%s\n", ERROR_FD);
-	else if (nbr == 5)
-		printf("%s\n", ERROR_MLX_INIT);
-	else if (nbr == 6)
-		printf("%s\n", ERROR_MAP_PROCESSING);
-	else if (nbr == 7)
-		printf("%s\n", ERROR_MAP_INVALID);
-	else if (nbr == 8)
-		printf("%s\n", ERROR_MAP_PATH);
-	else if (nbr == 9)
-		printf("%s\n", ERROR_MISS_ELEMTS);
-	else if (nbr == 10)
-		printf("%s\n", ERROR_DUPLICATE_ELEMENT);
-	else if (nbr == 11)
-		printf("%s\n", ERROR_UNKNOWN_ELEMENT);
-	else if (nbr == 12)
-		printf("%s\n", ERROR_EMPTY_FILE);
-	else if (nbr == 13)
-		printf("%s\n", ERROR_MAP_NOT_CLOSED);
-	else if (nbr == 14)
-		printf("%s\n", ERROR_PLAYER_NOT_FOUND);
-	else if (nbr == 15)
-		printf("%s\n", ERROR_INVALID_COLOR);
-	if (nbr != 2 && nbr != 1)
+	printf("Error\n%s\n", print_error_msg(nbr));
+	if (nbr != 1 && nbr != 2)
 		free_all(g);
 	exit(1);
 }
