@@ -6,11 +6,13 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 13:40:15 by pmachado          #+#    #+#             */
-/*   Updated: 2025/06/04 23:02:09 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/06/05 18:17:08 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static bool	all_elements_found(t_scene *scene);
 
 void	check_scene(char *path, t_scene *scene)
 {
@@ -32,20 +34,21 @@ void	read_scene(char *path, t_scene *scene)
 
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
-		ft_end(4, scene);
+		ft_end(4, NULL);
 	line_count = ft_count_lines(path);
 	scene->raw_lines = ft_calloc(line_count + 1, sizeof(char *)); //copia das linhas do ficheiro
 	if (!scene->raw_lines)
-		ft_end(ERROR_MALLOC, scene);
+		ft_end(3, NULL);
 	i = 0;
 	while ((line = get_next_line(fd)))
 	{
 		clean = spaces_for_tabs(line); //substituir tabs por espacos
 		scene->raw_lines[i] = ft_strtrim(clean, "\n"); //remove \n do final da linha
-		free(clean);
+		if (clean != line)
+			free(clean);
 		free(line);
 		if (!scene->raw_lines[i])
-			ft_end(ERROR_MALLOC, scene);
+			ft_end(3, NULL);
 		i++;
 	}
 	scene->raw_lines[i] = NULL;
@@ -55,7 +58,7 @@ void	read_scene(char *path, t_scene *scene)
 void	check_for_empty(t_scene *scene)
 {
 	if (!scene->raw_lines || !scene->raw_lines[0])
-		ft_end(ERROR_EMPTY_FILE, scene);
+		ft_end(12, NULL);
 }
 
 void	separate_map(t_scene *scene)
@@ -65,7 +68,7 @@ void	separate_map(t_scene *scene)
 
 	start = get_map_start_index(scene->raw_lines); // verifica onde começa o mapa
 	if (start == -1)
-		ft_end(8, scene);
+		ft_end(8, NULL);
 	count = count_map_lines(scene->raw_lines + start); // conta as linhas do mapa excluindo a metadata com info das texturas e cores
 	scene->map_size.y = count; //define a altura do mapa
 	copy_map_lines(scene, start, count); // copia as linhas do mapa para scene->map
@@ -74,16 +77,39 @@ void	separate_map(t_scene *scene)
 
 void	validate_elements(t_scene *scene)
 {
-	int	i;
+	int		i;
+	char	*trimmed;
 
 	i = 0;
-	while (scene->raw_lines[i] && !ft_is_map_line(scene->raw_lines[i])) //enquanto nao for o inicio do mapa
+	while (scene->raw_lines[i])
 	{
-		if (scene->raw_lines[i][0] != '\0')
-			parse_textures(scene, scene->raw_lines[i]); //retirar texturas e cores
+		trimmed = ft_strtrim(scene->raw_lines[i], " \t");
+		if (trimmed[0] != '\0')
+		{
+			if (ft_is_map_line(trimmed) && all_elements_found(scene))
+			{
+				free(trimmed);
+				break;
+			}
+			parse_textures(scene, trimmed);
+		}
+		free(trimmed);
 		i++;
 	}
+	printf("[DEBUG] n_path: %s\n", scene->n_path);
+	printf("[DEBUG] s_path: %s\n", scene->s_path);
+	printf("[DEBUG] w_path: %s\n", scene->w_path);
+	printf("[DEBUG] e_path: %s\n", scene->e_path);
+	printf("[DEBUG] floor_color: %d\n", scene->floor_color);
+	printf("[DEBUG] sky_color: %d\n", scene->sky_color);
+	printf("[DEBUG] Texturas e cores gravadas na struct.\n");
 	if (!scene->n_path || !scene->s_path || !scene->e_path || !scene->w_path
 		|| scene->floor_color == -1 || scene->sky_color == -1)
-		ft_end(9, scene); //estes campos devem vir populados
+		ft_end(9, NULL); //estes campos devem vir populados
+}
+
+static bool	all_elements_found(t_scene *scene)
+{
+	return (scene->n_path && scene->s_path && scene->e_path && scene->w_path
+		&& scene->floor_color != -1 && scene->sky_color != -1);
 }

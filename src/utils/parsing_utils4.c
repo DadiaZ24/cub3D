@@ -6,7 +6,7 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 17:34:18 by pmachado          #+#    #+#             */
-/*   Updated: 2025/06/05 10:50:52 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/06/05 18:11:39 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,17 @@ void	parse_colors(t_scene *scene, char *line)
 	if (ft_strncmp(line, "F ", 2) == 0)
 	{
 		if (scene->floor_color != -1)
-			ft_end(10, scene);
+			ft_end(10, NULL);
 		scene->floor_color = parse_rgb(line + 2);
 	}
 	else if (ft_strncmp(line, "C ", 2) == 0)
 	{
 		if (scene->sky_color != -1)
-			ft_end(10, scene);
+			ft_end(10, NULL);
 		scene->sky_color = parse_rgb(line + 2);
 	}
 	else
-		ft_end(15, scene);
+		ft_end(15, NULL);
 }
 
 int	parse_rgb(const char *line)
@@ -38,13 +38,14 @@ int	parse_rgb(const char *line)
 
 	colors = ft_split(line, ',');
 	if (!colors || !colors[0] || !colors[1] || !colors[2] || colors[3])
-		free_rgb_parts(colors, NULL), ft_end(15, NULL);
+		free_rgb_parts(colors, NULL);
 	trimmed[0] = trim_and_check_digit(colors[0]);
 	trimmed[1] = trim_and_check_digit(colors[1]);
 	trimmed[2] = trim_and_check_digit(colors[2]);
 	free_array(colors, 3);
+	free(colors);
 	if (!trimmed[0] || !trimmed[1] || !trimmed[2])
-		free_rgb_parts(NULL, trimmed), ft_end(15, NULL);
+		free_rgb_parts(NULL, trimmed);
 	r = ft_atoi(trimmed[0]);
 	g = ft_atoi(trimmed[1]);
 	b = ft_atoi(trimmed[2]);
@@ -69,13 +70,18 @@ char	*trim_and_check_digit(char *str)
 	return (trimmed);
 }
 
-void	free_rgb_parts(char **arr, char **trimmed)
+void	free_rgb_parts(char **colors, char **trimmed)
 {
-	if (arr)
-		free_array(arr, 3);
+	if (colors)
+	{
+		free_array(colors, 3);
+		free(colors);
+	}
 	if (trimmed)
-		free_array(trimmed, 3);
+		free_array(trimmed, 3);  // no free(trimmed) itself — stack allocated
+	ft_end(15, NULL);
 }
+
 
 bool	ft_isdigit_str(char *str)
 {

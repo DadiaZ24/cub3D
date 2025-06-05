@@ -6,7 +6,7 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 22:54:28 by pmachado          #+#    #+#             */
-/*   Updated: 2025/06/05 11:12:03 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/06/05 15:42:21 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	**duplicate_map(t_scene *scene)
 	{
 		copy[i] = ft_strdup(scene->map[i]);
 		if (!copy[i])
-			ft_end(6, scene);
+			ft_end(6, NULL);
 		i++;
 	}
 	copy[i] = NULL;

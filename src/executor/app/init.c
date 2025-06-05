@@ -6,17 +6,15 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 17:43:31 by pmachado          #+#    #+#             */
-/*   Updated: 2025/06/04 16:00:56 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/06/05 16:43:22 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-t_game	ft_init_game(char *map_path);
-t_game	*ft_create_game(void);
-void	ft_init_mlx(t_game *game);
+static void	load_texture(t_game *game, t_img *img, char *path);
 
-t_game	ft_init_game(char *map_path)
+t_game	*ft_init_game(char *map_path)
 {
 	t_game	*game;
 	
@@ -33,7 +31,7 @@ t_game	*ft_create_game(void)
 	
 	game = malloc(sizeof(t_game));
 	if (!game)
-		ft_exit(3, NULL);
+		ft_end(3, NULL);
 	game->scene = NULL;
 	game->mlx = NULL;
 	game->window = NULL;
@@ -74,8 +72,27 @@ t_scene	*ft_create_scene(char *path)
 	scene->floor_color = -1; //inicializar cores
 	scene->sky_color = -1; //inicializar cores
 	check_scene(path, scene); //ler o ficheiro .cub e fazer o parsing
-	parse_map(scene); //validar o mapa e definir a posicao do player
 	return (scene);
+}
+
+void	ft_load_textures(t_game *game)
+{
+	load_texture(game, &game->wall[N], game->scene->n_path);
+	load_texture(game, &game->wall[S], game->scene->s_path);
+	load_texture(game, &game->wall[E], game->scene->e_path);
+	load_texture(game, &game->wall[W], game->scene->w_path);
+}
+
+static void	load_texture(t_game *game, t_img *img, char *path)
+{
+	img->mlx_img = mlx_xpm_file_to_image(game->mlx, path,
+			&img->width, &img->height);
+	if (!img->mlx_img)
+		ft_end(16, NULL);
+	img->addr = mlx_get_data_addr(img->mlx_img,
+			&img->bpp, &img->line_len, &img->endian);
+	if (!img->addr)
+		ft_end(16, NULL);
 }
 
 // bool	init_game_data(t_game *game, t_data *data)

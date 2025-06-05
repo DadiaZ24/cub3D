@@ -6,7 +6,7 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:15:38 by ddias-fe          #+#    #+#             */
-/*   Updated: 2025/06/05 11:13:26 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/06/05 16:35:31 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,13 @@
 # include "../libs/libft/libft.h"
 # include <X11/keysym.h>
 # include <X11/X.h>
+# include <fcntl.h>
+# include <stdbool.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <string.h>
+# include <unistd.h>
+# include <stddef.h>
 
 //________________________________________________________________
 //|_________________________[DEFINE COLORS]_______________________|
@@ -107,15 +114,6 @@ typedef struct s_position
 	int						y;
 }	t_position;
 
-/* typedef struct s_tile
-{
-	map_char 				type;
-	t_position			 	pos;
-	
-}t_tile; 
-se precisarmos de fazer track a algum elemento em particular em relacao ao seu tipo e posicao e.x sprites animados
-*/
-
 typedef struct s_scene
 {
 	char					**map; 			//layout do mapa passa para esta struct
@@ -129,7 +127,7 @@ typedef struct s_scene
 	char					*w_path;		//textura desta direcao para passar p MiniLibx
 	int						sky_color;
 	int						floor_color;
-}	t_scene
+}	t_scene;
 
 typedef struct s_img
 {
@@ -147,31 +145,33 @@ typedef struct s_game
 	t_scene					*scene;			//pointer para a struct do mapa
 	void					*mlx;			//instancia mlx
 	void					*window;		//janelinha
-
 	t_img					wall[4];		//carregar as imagens das texturas para renderizar dps
 	t_img					game_img;
 }	t_game;
-
 
 //________________________________________________________________
 //|______________________[FUNCTION PROTOTYPES]____________________|
 //|_______________________________________________________________|
 
-//EXECUTOR
+/* //EXECUTOR
 bool	render_background(t_game *game);
 int		render(t_game *game);
 bool	executor(t_game *game, t_data *data);
 //bool	get_walls(t_game *game);
 //bool	init_game_data(t_game *game, t_data *data);
-void	put_pixel(t_game *game, int x, int y, int color);
+void	put_pixel(t_game *game, int x, int y, int color); */
 
 
 //VALIDATION
 bool		ft_validate_args(int ac, char **av);
+
 //INITIATE STRUCTS
-t_game		*ft_init_game(char *path);
+t_game		*ft_init_game(char *map_path);
 t_game		*ft_create_game(void);
 void		ft_init_mlx(t_game *game);
+t_scene		*ft_create_scene(char *path);
+void		ft_load_textures(t_game *game);
+
 //PARSING
 void		check_scene(char *path, t_scene *scene);
 void		read_scene(char *path, t_scene *scene);
@@ -208,6 +208,7 @@ bool		is_valid_map_char(char c);
 			//----------validate_map-------------//
 void		pad_map(t_scene *scene);
 void		find_player(t_scene *scene);
+void		set_spawn(t_scene *scene, int x, int y, char dir);
 void		check_closed_map(t_scene *scene);
 char		**duplicate_map(t_scene *scene);
 void		flood_fill(char **map, int max_x, int max_y, int x, int y);
@@ -223,6 +224,6 @@ void	free_array(char **arr, int max);
 int		ft_exit(t_game *g);
 
 //FREE UTILS
-void	free_array(char **arr);
+// void	free_array(char **arr);
 
 #endif

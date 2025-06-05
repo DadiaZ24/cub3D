@@ -6,7 +6,7 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 13:53:41 by pmachado          #+#    #+#             */
-/*   Updated: 2025/06/05 11:11:59 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/06/05 15:34:24 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	pad_map(t_scene *scene)
 		{
 			new_line = ft_calloc(scene->map_size.x + 1, sizeof(char)); //alocar memoria para a nova linha
 			if (!new_line)
-				ft_end(3, scene);
+				ft_end(3, NULL);
 			ft_memset(new_line, ' ', scene->map_size.x); //preenche a string com espaços
 			ft_memcpy(new_line, scene->map[y], len); //copia a linha atual para a nova linha
 			free(scene->map[y]); //liberta a linha antiga
@@ -78,7 +78,7 @@ void	find_player(t_scene *scene)
 			if (ft_strchr("NSEW", scene->map[y][x]))
 			{
 				if (found)
-					ft_end(ERROR_DUPLICATE_PLAYER, scene);
+					ft_end(10, NULL);
 				set_spawn(scene, x, y, scene->map[y][x]);
 				scene->map[y][x] = '0'; //substitui a posicao do player por '0'
 				found = true;
@@ -88,7 +88,7 @@ void	find_player(t_scene *scene)
 		y++;
 	}
 	if (!found)
-		ft_end(14, scene);
+		ft_end(14, NULL);
 }
 
 void	check_closed_map(t_scene *scene)

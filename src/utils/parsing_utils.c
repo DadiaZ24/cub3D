@@ -6,9 +6,11 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 21:19:41 by pmachado          #+#    #+#             */
-/*   Updated: 2025/06/03 10:46:25 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/06/05 15:40:46 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "cub3d.h"
 
 //----------read_scene-------------//
 
@@ -20,7 +22,7 @@ int	ft_count_lines(char *path)
 
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
-		ft_end(ERROR_FD, NULL);
+		ft_end(4, NULL);
 	count = 0;
 	while ((line = get_next_line(fd)))
 	{
