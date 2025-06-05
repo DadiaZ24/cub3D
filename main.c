@@ -6,13 +6,13 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:13:55 by ddias-fe          #+#    #+#             */
-/*   Updated: 2025/06/05 11:14:58 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/06/05 11:22:34 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	count_lines(char *av)
+/* int	count_lines(char *av)
 {
 	char	*line;
 	int		rows;
@@ -68,25 +68,20 @@ t_data	*init(char *av, t_data *data)
 	return (data);
 }
 
-/* t_data	**set_data(t_data **data, char *map_file)
+int	main(int ac, char **av)
 {
+	t_data	data;
+	t_game	game;
 
+	if (ac != 2)
+		return (printf("%s%s\n", ERROR, ERROR_ARGC), 1);
+	init(av[1], &data);
+	//map_char_parser(av[1]);
+	if (!executor(&game, &data))
+		return (printf("%s%s\n", ERROR, "Error executing game."), 1);
+	printf("Sai bem\n");
+	return (0);
 } */
-
-// int	main(int ac, char **av)
-// {
-// 	t_data	data;
-// 	t_game	game;
-
-// 	if (ac != 2)
-// 		return (printf("%s%s\n", ERROR, ERROR_ARGC), 1);
-// 	init(av[1], &data);
-// 	//map_char_parser(av[1]);
-// 	if (!executor(&game, &data))
-// 		return (printf("%s%s\n", ERROR, "Error executing game."), 1);
-// 	printf("Sai bem\n");
-// 	return (0);
-// }
 
 int	main(int ac, char **av)
 {
