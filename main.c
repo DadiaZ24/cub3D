@@ -6,7 +6,7 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:13:55 by ddias-fe          #+#    #+#             */
-/*   Updated: 2025/06/02 13:05:25 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/06/05 11:14:58 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,10 +98,11 @@ int	main(int ac, char **av)
 		exit(1);
 	}
 	game = ft_init_game(av[1]);
-	if(game != NULL)
-		ft_start_game(game);
-	clean_exit(game);	
-	printf("Game executed successfully.\n");
+	printf("Game initialized and parsing was successful");
+	// if(game != NULL)
+	// 	ft_start_game(game);
+	// clean_exit(game);	
+	// printf("Game executed successfully.\n");
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:15:38 by ddias-fe          #+#    #+#             */
-/*   Updated: 2025/06/04 23:39:49 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/06/05 11:13:26 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,6 +179,7 @@ void		check_for_empty(t_scene *scene);
 void		separate_map(t_scene *scene);
 void		validate_elements(t_scene *scene);
 void		validate_map_characters(char **map);
+void		validate_map(t_scene *scene);
 
 			//----------read_scene-----------//
 int			ft_count_lines(char *path);
@@ -205,8 +206,11 @@ bool		ft_isdigit_str(char *str);
 			//----------validate_map_chars-------//
 bool		is_valid_map_char(char c);
 			//----------validate_map-------------//
-void		pad_map_lines(t_scene *scene);
+void		pad_map(t_scene *scene);
 void		find_player(t_scene *scene);
+void		check_closed_map(t_scene *scene);
+char		**duplicate_map(t_scene *scene);
+void		flood_fill(char **map, int max_x, int max_y, int x, int y);
 
 
 

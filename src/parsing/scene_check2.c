@@ -6,7 +6,7 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 13:53:41 by pmachado          #+#    #+#             */
-/*   Updated: 2025/06/04 23:38:34 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/06/05 11:11:59 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	validate_map(t_scene *scene)
 	check_closed_map(scene);	//floodfill e ver se o mapa esta fechado
 }
 
-void	pad_map_lines(t_scene *scene)
+void	pad_map(t_scene *scene)
 {
 	int		y;
 	int		len;
@@ -91,3 +91,15 @@ void	find_player(t_scene *scene)
 		ft_end(14, scene);
 }
 
+void	check_closed_map(t_scene *scene)
+{
+	char	**copy;
+	int		x;
+	int		y;
+
+	x = scene->spawn.x;
+	y = scene->spawn.y;
+	copy = duplicate_map(scene);
+	flood_fill(copy, scene->map_size.x, scene->map_size.y, x, y);
+	free_array(copy, scene->map_size.y);
+}
