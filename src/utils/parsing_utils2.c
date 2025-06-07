@@ -6,7 +6,7 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 10:17:57 by pmachado          #+#    #+#             */
-/*   Updated: 2025/06/05 15:41:07 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/06/07 21:10:58 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,13 @@ int	get_map_start_index(char **lines)
 	i = 0;
 	while (lines[i])
 	{
-		if (ft_is_map_line(lines[i]))
+		char *trimmed = ft_strtrim(lines[i], " \t");
+		if (ft_is_map_line(trimmed))
+		{
+			free(trimmed);
 			return (i);
+		}
+		free(trimmed);
 		i++;
 	}
 	return (-1);
