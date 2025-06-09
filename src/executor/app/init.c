@@ -6,7 +6,7 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 17:43:31 by pmachado          #+#    #+#             */
-/*   Updated: 2025/06/05 16:43:22 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/06/09 17:23:31 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ t_game	*ft_init_game(char *map_path)
 	
 	game = ft_create_game(); //alocar t_game
 	game->scene = ft_create_scene(map_path); //alocar t_scene
+	printf("Parsing feito :)\n");
 	ft_init_mlx(game); //inicializar mlx
 	ft_load_textures(game);
 	return (game);

@@ -6,7 +6,7 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 13:53:41 by pmachado          #+#    #+#             */
-/*   Updated: 2025/06/07 20:52:47 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/06/09 17:18:29 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,26 @@ void	validate_map_characters(char **map)
 {
 	int	y;
 	int	x;
-
+	int total;
+	total = 0;
 	y = 0;
 	while (map[y])
 	{
 		x = 0;
 		while (map[y][x])
 		{
-			printf("[DEBUG] TESTE TESTE.\n");
+			
 			if (!is_valid_map_char(map[y][x]))
 			{
 				printf("[DEBUG] Caractere invalido: %c na posicao (%d, %d)\n", map[y][x], x, y);	
 				ft_end(7, NULL);
 			}
+			total++;
 			x++;
 		}
 		y++;
 	}
+	printf("[DEBUG] Validated %d map characters.\n", total);
 }
 
 void	validate_map(t_scene *scene)

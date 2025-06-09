@@ -6,7 +6,7 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 13:40:15 by pmachado          #+#    #+#             */
-/*   Updated: 2025/06/07 21:11:58 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/06/09 17:19:49 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,19 @@ void	check_scene(char *path, t_scene *scene)
 {
 	read_scene(path, scene);					// ler o ficheiro .cub e copiar as linhas para scene->raw_lines
 	check_for_empty(scene);						// verificar se esta vazio
-	
 	validate_elements(scene);					// all metadata filled?
-	
+
 	printf("[DEBUG] Elementos validos. Checkar mapa agora.\n");
-	
+
 	separate_map(scene);						// extract map
 	for (int j = 0; scene->map[j]; j++)
 	printf("[MAP] %s\n", scene->map[j]);
+	
 	validate_map_characters(scene->map);		// only valid characters
-
 	printf("[DEBUG] Caracteres no mapa validos.\n");
-		
+	
 	validate_map(scene);						// check closure, player
+	printf("[DEBUG] Mapa Valido :)\n");
 }
 
 void	read_scene(char *path, t_scene *scene)
