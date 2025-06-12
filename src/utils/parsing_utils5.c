@@ -6,7 +6,7 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 22:54:28 by pmachado          #+#    #+#             */
-/*   Updated: 2025/06/05 15:42:21 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/06/12 16:43:40 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,14 @@ void	flood_fill(char **map, int max_x, int max_y, int x, int y)
 	flood_fill(map, max_x, max_y, x - 1, y);
 	flood_fill(map, max_x, max_y, x, y + 1);
 	flood_fill(map, max_x, max_y, x, y - 1);
+}
+
+void	validate_texture_path(char *path)
+{
+	int	fd;
+
+	fd = open(path, O_RDONLY);
+	if (fd < 0)
+		ft_end(17, NULL);
+	close(fd);
 }

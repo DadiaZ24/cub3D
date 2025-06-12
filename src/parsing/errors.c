@@ -6,7 +6,7 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 20:23:43 by pmachado          #+#    #+#             */
-/*   Updated: 2025/06/05 18:05:55 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/06/12 17:02:54 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,10 @@ static const char *print_error_msg(int nbr)
 		"Map not closed",
 		"Player not found",
 		"Invalid color",
-		"Failed to load texture"
+		"Failed to load texture",
+		"Invalid path to texture"
 	};
-	if (nbr < 1 || nbr > 16)
+	if (nbr < 1 || nbr > 17)
 		return ("Unknown error");
 	return (messages[nbr - 1]);
 }

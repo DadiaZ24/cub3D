@@ -6,7 +6,7 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:15:38 by ddias-fe          #+#    #+#             */
-/*   Updated: 2025/06/07 21:11:19 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/06/12 16:38:23 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,6 +203,7 @@ int			parse_rgb(const char *line);
 char		*trim_and_check_digit(char *str);
 void		free_rgb_parts(char **arr, char **trimmed);
 bool		ft_isdigit_str(char *str);
+void		validate_texture_path(char *path);
 			//----------validate_map_chars-------//
 bool		is_valid_map_char(char c);
 			//----------validate_map-------------//

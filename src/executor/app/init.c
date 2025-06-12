@@ -6,7 +6,7 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 17:43:31 by pmachado          #+#    #+#             */
-/*   Updated: 2025/06/09 17:23:31 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/06/12 16:59:23 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@ t_game	*ft_init_game(char *map_path)
 	game->scene = ft_create_scene(map_path); //alocar t_scene
 	printf("Parsing feito :)\n");
 	ft_init_mlx(game); //inicializar mlx
+	printf("mlx iniciada :) \n");
 	ft_load_textures(game);
+	printf("Texturas carregadas :) \n");
 	return (game);
 }
 
@@ -43,6 +45,9 @@ void	ft_init_mlx(t_game *game)
 	int	i;
 
 	i = 0;
+	game->mlx = mlx_init();
+	if (!game->mlx)
+		ft_end(5, NULL);
 	game->game_img.mlx_img = NULL;
 	game->game_img.addr = NULL;
 	game->game_img.bpp = 0;
@@ -86,14 +91,21 @@ void	ft_load_textures(t_game *game)
 
 static void	load_texture(t_game *game, t_img *img, char *path)
 {
+	printf("[DEBUG] a carregar textura: %s\n", path);
 	img->mlx_img = mlx_xpm_file_to_image(game->mlx, path,
 			&img->width, &img->height);
 	if (!img->mlx_img)
+	{
+		perror("[DEBUG] mlx_xpm_file_to_image");
 		ft_end(16, NULL);
+	}
 	img->addr = mlx_get_data_addr(img->mlx_img,
 			&img->bpp, &img->line_len, &img->endian);
 	if (!img->addr)
+	{
+		perror("[DEBUG] mlx_get_data_addr");
 		ft_end(16, NULL);
+	}
 }
 
 // bool	init_game_data(t_game *game, t_data *data)
