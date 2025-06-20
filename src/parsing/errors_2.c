@@ -1,23 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   args_validation.c                                  :+:      :+:    :+:   */
+/*   errors_2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/27 11:41:10 by ddias-fe          #+#    #+#             */
-/*   Updated: 2025/06/20 12:56:47 by pmachado         ###   ########.fr       */
+/*   Created: 2025/06/20 13:03:34 by pmachado          #+#    #+#             */
+/*   Updated: 2025/06/20 13:03:58 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-bool	ft_validate_args(int ac, char **av)
+void	free_array(char **arr, int max)
 {
-	if (ac != 2)
-		ft_end(1, NULL);
-	if (ft_strlen(av[1]) < 4
-		|| ft_strncmp(av[1] + ft_strlen(av[1]) - 4, ".cub", 4) != 0)
-		ft_end(2, NULL);
-	return (true);
+	int	i;
+
+	i = 0;
+	if (!arr)
+		return ;
+	while (i < max && arr[i])
+		free(arr[i++]);
+}
+
+int	ft_exit(t_game *g)
+{
+	free_all(g);
+	exit(EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 13:52:23 by pmachado          #+#    #+#             */
-/*   Updated: 2025/06/12 16:39:18 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/06/20 12:45:51 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,53 +15,56 @@
 void	parse_textures(t_scene *scene, char *line)
 {
 	if (ft_strncmp(line, "NO ", 3) == 0)
-		parse_NO(scene, line);
+		parse_no(scene, line);
 	else if (ft_strncmp(line, "SO ", 3) == 0)
-		parse_SO(scene, line);
+		parse_so(scene, line);
 	else if (ft_strncmp(line, "WE ", 3) == 0)
-		parse_WE(scene, line);
+		parse_we(scene, line);
 	else if (ft_strncmp(line, "EA ", 3) == 0)
-		parse_EA(scene, line);
+		parse_ea(scene, line);
 	else if (line[0] == 'F' && (line[1] == ' ' || line[1] == '\t'))
 		parse_colors(scene, line);
 	else if (line[0] == 'C' && (line[1] == ' ' || line[1] == '\t'))
 		parse_colors(scene, line);
 	else
-		ft_end(11, NULL); // Unknown element
+		ft_end(11, NULL);
 }
 
-void	parse_NO(t_scene *scene, char *line)
+void	parse_no(t_scene *scene, char *line)
 {
 	if (scene->n_path)
 		ft_end(10, NULL);
-	scene->n_path = ft_strtrim(line + 3, " \t"); //skipa "NO " e copia "./textures/wall.xpm"
+	scene->n_path = ft_strtrim(line + 3, " \t");
 	if (!scene->n_path)
 		ft_end(3, NULL);
 	validate_texture_path(scene->n_path);
 }
-void	parse_SO(t_scene *scene, char *line)
+
+void	parse_so(t_scene *scene, char *line)
 {
 	if (scene->s_path)
 		ft_end(10, NULL);
-	scene->s_path = ft_strtrim(line + 3, " \t"); //skipa "SO " e copia "./textures/wall.xpm"
+	scene->s_path = ft_strtrim(line + 3, " \t");
 	if (!scene->s_path)
 		ft_end(3, NULL);
 	validate_texture_path(scene->s_path);
 }
-void	parse_WE(t_scene *scene, char *line)
+
+void	parse_we(t_scene *scene, char *line)
 {
 	if (scene->w_path)
 		ft_end(10, NULL);
-	scene->w_path = ft_strtrim(line + 3, " \t"); //skipa "WE " e copia "./textures/wall.xpm"
+	scene->w_path = ft_strtrim(line + 3, " \t");
 	if (!scene->w_path)
 		ft_end(3, NULL);
 	validate_texture_path(scene->w_path);
 }
-void	parse_EA(t_scene *scene, char *line)
+
+void	parse_ea(t_scene *scene, char *line)
 {
 	if (scene->e_path)
 		ft_end(10, NULL);
-	scene->e_path = ft_strtrim(line + 3, " \t"); //skipa "EA " e copia "./textures/wall.xpm"
+	scene->e_path = ft_strtrim(line + 3, " \t");
 	if (!scene->e_path)
 		ft_end(3, NULL);
 	validate_texture_path(scene->e_path);

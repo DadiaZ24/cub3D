@@ -6,15 +6,15 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 20:23:43 by pmachado          #+#    #+#             */
-/*   Updated: 2025/06/12 17:02:54 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/06/20 13:07:06 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static const char *print_error_msg(int nbr)
+static const char	*print_error_msg(int nbr)
 {
-	static const char *messages[] = {
+	static const char	*messages[] = {
 		"Invalid number of arguments",
 		"Invalid file extension",
 		"Malloc failed",
@@ -33,6 +33,7 @@ static const char *print_error_msg(int nbr)
 		"Failed to load texture",
 		"Invalid path to texture"
 	};
+
 	if (nbr < 1 || nbr > 17)
 		return ("Unknown error");
 	return (messages[nbr - 1]);
@@ -46,8 +47,6 @@ void	ft_end(int nbr, t_game *g)
 	exit(1);
 }
 
-//* *******************************-Para acertar ainda-********************************************/
- 
 void	free_all(t_game *g)
 {
 	int	i;
@@ -100,20 +99,4 @@ void	free_scene(t_scene *scene)
 	free(scene->e_path);
 	free(scene->w_path);
 	free(scene);
-}
-
-void	free_array(char **arr, int max)
-{
-	int i = 0;
-
-	if (!arr)
-		return ;
-	while (i < max && arr[i])
-		free(arr[i++]);
-}
-
-int	ft_exit(t_game *g)
-{
-	free_all(g);
-	exit(EXIT_SUCCESS);
 }

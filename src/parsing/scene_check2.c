@@ -6,7 +6,7 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 13:53:41 by pmachado          #+#    #+#             */
-/*   Updated: 2025/06/09 17:18:29 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/06/20 13:09:36 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ void	validate_map_characters(char **map)
 {
 	int	y;
 	int	x;
-	int total;
+	int	total;
+
 	total = 0;
 	y = 0;
 	while (map[y])
@@ -24,49 +25,19 @@ void	validate_map_characters(char **map)
 		x = 0;
 		while (map[y][x])
 		{
-			
 			if (!is_valid_map_char(map[y][x]))
-			{
-				printf("[DEBUG] Caractere invalido: %c na posicao (%d, %d)\n", map[y][x], x, y);	
 				ft_end(7, NULL);
-			}
 			total++;
 			x++;
 		}
 		y++;
 	}
-	printf("[DEBUG] Validated %d map characters.\n", total);
 }
 
 void	validate_map(t_scene *scene)
 {
-	pad_map(scene);				//tornar o mapa retangular
-	find_player(scene);			//gravar posicao do player e direcao
-	check_closed_map(scene);	//floodfill e ver se o mapa esta fechado
-}
-
-void	pad_map(t_scene *scene)
-{
-	int		y;
-	int		len;
-	char	*new_line;
-
-	y = 0;
-	while (scene->map[y])
-	{
-		len = ft_strlen(scene->map[y]); //len da linha atual
-		if (len < scene->map_size.x) //se len for menor do que a maior linha do mapa
-		{
-			new_line = ft_calloc(scene->map_size.x + 1, sizeof(char)); //alocar memoria para a nova linha
-			if (!new_line)
-				ft_end(3, NULL);
-			ft_memset(new_line, ' ', scene->map_size.x); //preenche a string com espaços
-			ft_memcpy(new_line, scene->map[y], len); //copia a linha atual para a nova linha
-			free(scene->map[y]); //liberta a linha antiga
-			scene->map[y] = new_line; //substitui a linha antiga pela nova
-		}
-		y++;
-	}
+	find_player(scene);
+	check_closed_map(scene);
 }
 
 void	find_player(t_scene *scene)
@@ -87,7 +58,7 @@ void	find_player(t_scene *scene)
 				if (found)
 					ft_end(10, NULL);
 				set_spawn(scene, x, y, scene->map[y][x]);
-				scene->map[y][x] = '0'; //substitui a posicao do player por '0'
+				scene->map[y][x] = '0';
 				found = true;
 			}
 			x++;
@@ -100,13 +71,18 @@ void	find_player(t_scene *scene)
 
 void	check_closed_map(t_scene *scene)
 {
-	char	**copy;
-	int		x;
-	int		y;
+	char		**copy;
+	int			x;
+	int			y;
+	t_fill_data	data;
 
 	x = scene->spawn.x;
 	y = scene->spawn.y;
+	replace_spaces_with_1s(scene->map);
 	copy = duplicate_map(scene);
-	flood_fill(copy, scene->map_size.x, scene->map_size.y, x, y);
+	data.map = copy;
+	data.max_x = scene->map_size.x;
+	data.max_y = scene->map_size.y;
+	flood_fill(&data, x, y);
 	free_array(copy, scene->map_size.y);
 }
