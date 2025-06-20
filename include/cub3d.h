@@ -6,7 +6,7 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:15:38 by ddias-fe          #+#    #+#             */
-/*   Updated: 2025/06/12 16:38:23 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/06/20 12:53:56 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,13 @@ typedef struct s_position
 	int						y;
 }	t_position;
 
+typedef struct s_fill_data
+{
+	char	**map;
+	int		max_x;
+	int		max_y;
+}	t_fill_data;
+
 typedef struct s_scene
 {
 	char					**map; 			//layout do mapa passa para esta struct
@@ -183,9 +190,11 @@ void		validate_map(t_scene *scene);
 
 			//----------read_scene-----------//
 int			ft_count_lines(char *path);
+char		*process_scene_line(char *line);
 char		*spaces_for_tabs(char *line);
 int			has_tabs(const char *line);
 void		change_tabs(const char *line, char *new_line);
+bool		all_elements_found(t_scene *scene);
 			//----------separate_map---------//
 int			get_map_start_index(char **lines);
 int			count_map_lines(char **lines);
@@ -194,10 +203,10 @@ int			ft_get_max_line_length(char **map);
 bool		ft_is_map_line(char *line);
 			//----------validate_elements---------//
 void		parse_textures(t_scene *scene, char *line);
-void		parse_NO(t_scene *scene, char *line);
-void		parse_SO(t_scene *scene, char *line);
-void		parse_WE(t_scene *scene, char *line);
-void		parse_EA(t_scene *scene, char *line);
+void		parse_no(t_scene *scene, char *line);
+void		parse_so(t_scene *scene, char *line);
+void		parse_we(t_scene *scene, char *line);
+void		parse_ea(t_scene *scene, char *line);
 void		parse_colors(t_scene *scene, char *line);
 int			parse_rgb(const char *line);
 char		*trim_and_check_digit(char *str);
@@ -207,14 +216,13 @@ void		validate_texture_path(char *path);
 			//----------validate_map_chars-------//
 bool		is_valid_map_char(char c);
 			//----------validate_map-------------//
-void		pad_map(t_scene *scene);
+//void		pad_map(t_scene *scene);
 void		find_player(t_scene *scene);
 void		set_spawn(t_scene *scene, int x, int y, char dir);
+void		replace_spaces_with_1s(char **map);
 void		check_closed_map(t_scene *scene);
 char		**duplicate_map(t_scene *scene);
-void		flood_fill(char **map, int max_x, int max_y, int x, int y);
-
-
+void		flood_fill(t_fill_data *data, int x, int y);
 
 
 //ERROR
