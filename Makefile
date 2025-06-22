@@ -40,9 +40,9 @@ PARSING = \
 				parsing_utils4.c \
 				parsing_utils5.c
 
-EXECUTOR		= init.c 
+EXECUTOR		= init.c player.c render.c
 
-#UTILS			= free_utils.c
+UTILS			= render_utils.c
 
 # _______________________________________________________________
 #|___________________________[SRC FILES]_________________________|
@@ -51,7 +51,7 @@ EXECUTOR		= init.c
 SRC				= $(GENERAL)\
 					$(PARSING)\
 					$(EXECUTOR)\
-#					$(UTILS)\
+					$(UTILS)\
 
 VPATH 			= src\
 					src/parsing\

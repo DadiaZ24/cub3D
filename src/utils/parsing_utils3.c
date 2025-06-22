@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-void	parse_textures(t_scene *scene, char *line)
+void parse_textures(t_scene *scene, char *line)
 {
 	if (ft_strncmp(line, "NO ", 3) == 0)
 		parse_NO(scene, line);
@@ -30,27 +30,27 @@ void	parse_textures(t_scene *scene, char *line)
 		ft_end(11, NULL); // Unknown element
 }
 
-void	parse_NO(t_scene *scene, char *line)
+void parse_NO(t_scene *scene, char *line)
 {
 	if (scene->n_path)
 		ft_end(10, NULL);
-	scene->n_path = ft_strtrim(line + 3, " \t"); //skipa "NO " e copia "./textures/wall.xpm"
+	scene->n_path = ft_strtrim(line + 3, " \t"); // skipa "NO " e copia "./textures/wall.xpm"
 }
-void	parse_SO(t_scene *scene, char *line)
+void parse_SO(t_scene *scene, char *line)
 {
 	if (scene->s_path)
 		ft_end(10, NULL);
-	scene->s_path = ft_strtrim(line + 3, " \t"); //skipa "SO " e copia "./textures/wall.xpm"
+	scene->s_path = ft_strtrim(line + 3, " \t"); // skipa "SO " e copia "./textures/wall.xpm"
 }
-void	parse_WE(t_scene *scene, char *line)
+void parse_WE(t_scene *scene, char *line)
 {
 	if (scene->w_path)
 		ft_end(10, NULL);
-	scene->w_path = ft_strtrim(line + 3, " \t"); //skipa "WE " e copia "./textures/wall.xpm"
+	scene->w_path = ft_strtrim(line + 3, " \t"); // skipa "WE " e copia "./textures/wall.xpm"
 }
-void	parse_EA(t_scene *scene, char *line)
+void parse_EA(t_scene *scene, char *line)
 {
 	if (scene->e_path)
 		ft_end(10, NULL);
-	scene->e_path = ft_strtrim(line + 3, " \t"); //skipa "EA " e copia "./textures/wall.xpm"
+	scene->e_path = ft_strtrim(line + 3, " \t"); // skipa "EA " e copia "./textures/wall.xpm"
 }

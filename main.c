@@ -17,7 +17,7 @@
 	char	*line;
 	int		rows;
 	int		fd;
-	
+
 	rows = 0;
 	if ((fd = open(av, O_RDONLY)) <= 0)
 		return (0);
@@ -83,9 +83,9 @@ int	main(int ac, char **av)
 	return (0);
 } */
 
-int	main(int ac, char **av)
+int main(int ac, char **av)
 {
-	t_game	*game;
+	t_game *game;
 
 	printf("Ola.\n");
 	if (!ft_validate_args(ac, av))
@@ -101,8 +101,9 @@ int	main(int ac, char **av)
 	}
 	printf("Game initialized and parsing was successful");
 	// if(game != NULL)
-	// 	ft_start_game(game);
-	// clean_exit(game);	
+	init_game_data(game);
+	mlx_loop(game->mlx);
+	// clean_exit(game);
 	// printf("Game executed successfully.\n");
 	return (0);
 }
@@ -117,6 +118,6 @@ int	main(int ac, char **av)
 - Map validation:
 	- Check if all the characters are 0, 1, N, S, E, W
 	- Check if the map is all closed with walls (1)
-	
-	
+
+
 	*/

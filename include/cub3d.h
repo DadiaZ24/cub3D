@@ -89,6 +89,10 @@
 #define S 1
 #define E 2
 #define W 3
+#define RES 64
+#define LEFT 65361
+#define RIGHT 65361
+#define PI 3.14159265359
 
 //________________________________________________________________
 //|_____________________________[ENUMS]___________________________|
@@ -142,6 +146,21 @@ typedef struct s_img
 	int height;
 } t_img;
 
+typedef struct s_player
+{
+	float x;
+	float y;
+	float angle;
+
+	bool left_rotate;
+	bool right_rotate;
+
+	bool is_moving_up;
+	bool is_moving_down;
+	bool is_moving_left;
+	bool is_moving_right;
+} t_player;
+
 typedef struct s_game
 {
 	t_scene *scene; // pointer para a struct do mapa
@@ -149,16 +168,7 @@ typedef struct s_game
 	void *window;	// janelinha
 	t_img wall[4];	// carregar as imagens das texturas para renderizar dps
 	t_img game_img;
-	void *mlx;
-	void *window;
-	double player_x;
-	double player_y;
-	double player_dir_x;
-	double player_dir_y;
-	double plane_x;
-	double plane_y;
-	double camera_x;
-	double camera_y;
+	t_player player;
 } t_game;
 
 //________________________________________________________________
@@ -172,6 +182,9 @@ bool	executor(t_game *game, t_data *data);
 //bool	get_walls(t_game *game);
 //bool	init_game_data(t_game *game, t_data *data);
 void	put_pixel(t_game *game, int x, int y, int color); */
+
+bool render_background(t_game *game);
+void put_pixel(t_game *game, int x, int y, int color);
 
 // VALIDATION
 bool ft_validate_args(int ac, char **av);
@@ -233,5 +246,15 @@ int ft_exit(t_game *g);
 
 // FREE UTILS
 //  void	free_array(char **arr);
+
+bool init_game_data(t_game *game);
+bool get_walls(t_game *game);
+void init_player(t_game *game);
+int key_press(int keycode, t_game *game);
+int key_release(int keycode, t_game *game);
+void movement(t_game *game);
+void draw_square(int x, int y, int size, int color, t_game *game);
+int draw_loop(t_game *game);
+void draw_walls(t_game *game);
 
 #endif

@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-void	parse_colors(t_scene *scene, char *line)
+void parse_colors(t_scene *scene, char *line)
 {
 	if (ft_strncmp(line, "F ", 2) == 0)
 	{
@@ -30,11 +30,11 @@ void	parse_colors(t_scene *scene, char *line)
 		ft_end(15, NULL);
 }
 
-int	parse_rgb(const char *line)
+int parse_rgb(const char *line)
 {
-	char	**colors;
-	char	*trimmed[3];
-	int		r, g, b;
+	char **colors;
+	char *trimmed[3];
+	int r, g, b;
 
 	colors = ft_split(line, ',');
 	if (!colors || !colors[0] || !colors[1] || !colors[2] || colors[3])
@@ -55,9 +55,9 @@ int	parse_rgb(const char *line)
 	return (r * 65536 + g * 256 + b);
 }
 
-char	*trim_and_check_digit(char *str)
+char *trim_and_check_digit(char *str)
 {
-	char	*trimmed;
+	char *trimmed;
 
 	trimmed = ft_strtrim(str, " \t");
 	if (!trimmed)
@@ -70,7 +70,7 @@ char	*trim_and_check_digit(char *str)
 	return (trimmed);
 }
 
-void	free_rgb_parts(char **colors, char **trimmed)
+void free_rgb_parts(char **colors, char **trimmed)
 {
 	if (colors)
 	{
@@ -78,12 +78,11 @@ void	free_rgb_parts(char **colors, char **trimmed)
 		free(colors);
 	}
 	if (trimmed)
-		free_array(trimmed, 3);  // no free(trimmed) itself — stack allocated
+		free_array(trimmed, 3); // no free(trimmed) itself — stack allocated
 	ft_end(15, NULL);
 }
 
-
-bool	ft_isdigit_str(char *str)
+bool ft_isdigit_str(char *str)
 {
 	int i = 0;
 	while (str[i])
