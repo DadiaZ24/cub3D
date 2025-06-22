@@ -1,4 +1,4 @@
-#include "cub3d.h"
+/* #include "cub3d.h"
 
 bool executor(t_game *game, t_data *data)
 {
@@ -16,3 +16,4 @@ int	render(t_game *game)
 	mlx_put_image_to_window(game->mlx, game->window, game->game_img.mlx_img, 0, 0);
 	return (1);
 }
+ */

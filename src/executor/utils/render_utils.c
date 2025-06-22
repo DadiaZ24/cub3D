@@ -1,4 +1,4 @@
-#include "cub3d.h"
+/* #include "cub3d.h"
 
 bool	render_background(t_game *game)
 {
@@ -29,4 +29,4 @@ void	put_pixel(t_game *game, int x, int y, int color)
 		return ;
 	offset = (y * game->game_img.line_len) + (x * (game->game_img.bpp / 8));
 	*(unsigned int *)(game->game_img.addr + offset) = color;
-}
+} */

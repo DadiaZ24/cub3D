@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddias-fe <ddias-fe@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:13:55 by ddias-fe          #+#    #+#             */
-/*   Updated: 2025/03/25 14:44:29 by ddias-fe         ###   ########.fr       */
+/*   Updated: 2025/06/05 17:46:08 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	count_lines(char *av)
+/* int	count_lines(char *av)
 {
 	char	*line;
 	int		rows;
@@ -68,19 +68,11 @@ t_data	*init(char *av, t_data *data)
 	return (data);
 }
 
-/* t_data	**set_data(t_data **data, char *map_file)
-{
-
-} */
-
 int	main(int ac, char **av)
 {
 	t_data	data;
 	t_game	game;
 
-	// TODO: DELETE WHEN WE HAVE THE SKY AND FLOOR PARSING COLORS
-	data.sky_color = 0x87CEEB;
-	data.floor_color = 0x654321;
 	if (ac != 2)
 		return (printf("%s%s\n", ERROR, ERROR_ARGC), 1);
 	init(av[1], &data);
@@ -89,8 +81,33 @@ int	main(int ac, char **av)
 		return (printf("%s%s\n", ERROR, "Error executing game."), 1);
 	printf("Sai bem\n");
 	return (0);
+} */
+
+int	main(int ac, char **av)
+{
+	t_game	*game;
+
+	printf("Ola.\n");
+	if (!ft_validate_args(ac, av))
+	{
+		printf("%s\n", ERROR_INVALID_ARGS);
+		exit(1);
+	}
+	game = ft_init_game(av[1]);
+	if (!game)
+	{
+		printf("Failed to initialize game\n");
+		exit(1);
+	}
+	printf("Game initialized and parsing was successful");
+	// if(game != NULL)
+	// 	ft_start_game(game);
+	// clean_exit(game);	
+	// printf("Game executed successfully.\n");
+	return (0);
 }
 
+/* ************************************************************************** */
 
 /* To-do:
 

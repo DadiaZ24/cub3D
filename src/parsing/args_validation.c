@@ -1,29 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_utils.c                                       :+:      :+:    :+:   */
+/*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joao-ppe <joao-ppe@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/10 18:49:52 by joao-ppe          #+#    #+#             */
-/*   Updated: 2025/03/11 13:46:58 by joao-ppe         ###   ########.fr       */
+/*   Created: 2025/02/27 11:41:10 by ddias-fe          #+#    #+#             */
+/*   Updated: 2025/06/04 13:41:49 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	free_array(char **arr)
+bool	ft_validate_args(int ac, char **av)
 {
-	int	i;
-
-	if (!arr)
-		return ;
-	i = 0;
-	while (arr[i])
-	{
-		if (arr[i])
-			free(arr[i]);
-		i++;
-	}
-	free(arr);
+	if (ac != 2)
+		ft_end(1, NULL);
+	if (ft_strlen(av[1]) < 4
+		|| ft_strncmp(av[1] + ft_strlen(av[1]) - 4, ".cub", 4) != 0)// verifica se o ficheiro tem a extensao .cub
+		ft_end(2, NULL);
+	return (true);
 }

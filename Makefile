@@ -29,11 +29,20 @@ MLX 			= libs/minilibx-linux/libmlx.a
 
 GENERAL			= main.c
 
-PARSING			= map_parsing.c
+PARSING = \
+				args_validation.c \
+				errors.c \
+				scene_check.c \
+				scene_check2.c \
+				parsing_utils.c \
+				parsing_utils2.c \
+				parsing_utils3.c \
+				parsing_utils4.c \
+				parsing_utils5.c
 
-EXECUTOR		= init.c render_utils.c executor.c 
+EXECUTOR		= init.c 
 
-UTILS			= free_utils.c
+#UTILS			= free_utils.c
 
 # _______________________________________________________________
 #|___________________________[SRC FILES]_________________________|
@@ -42,7 +51,7 @@ UTILS			= free_utils.c
 SRC				= $(GENERAL)\
 					$(PARSING)\
 					$(EXECUTOR)\
-					$(UTILS)\
+#					$(UTILS)\
 
 VPATH 			= src\
 					src/parsing\
@@ -64,27 +73,33 @@ OBJ 			= $(SRC:%.c=$(OBJ_DIR)/%.o)
 all:			$(NAME)
 
 $(OBJ_DIR):
-				mkdir -p obj
+	mkdir -p obj
 
 $(OBJ_DIR)/%.o: %.c
-	@$(CC) $(CFLAGS) $(INC) -c $< -o $@ 
+	@echo "Compiling $<"
+	@$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
-$(NAME):		$(OBJ_DIR) $(OBJ) $(MLX) $(LIBFT)
-				$(CC) $(CFLAGS) $(OBJ) $(LIBFT) $(MLXFLAGS) -o $(NAME)
+$(NAME): $(OBJ_DIR) $(OBJ) $(MLX) $(LIBFT)
+	@echo "Linking $(NAME)..."
+	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) $(MLXFLAGS) -o $(NAME)
+	@echo "✅ Build complete"
 
-$(LIBFT):		libs/libft/*.c
-				make -C libs/libft
+$(LIBFT): libs/libft/*.c
+	@echo "Building libft..."
+	@$(MAKE) -C libs/libft > /dev/null
 
 $(MLX): 
-				make -C ./libs/minilibx-linux
-
+	@echo "Building MiniLibX..."
+	@$(MAKE) -C ./libs/minilibx-linux > /dev/null
 
 clean:
-				$(RM) $(OBJ_DIR)
+	@echo "Cleaning object files..."
+	@$(RM) $(OBJ_DIR)
 
-fclean: 		clean
-				$(RM) $(NAME)
-				$(RM) $(LIBFT)
+fclean: clean
+	@echo "Cleaning executable and libraries..."
+	@$(RM) $(NAME)
+	@$(RM) $(LIBFT)
 
 re: 			fclean all
 
