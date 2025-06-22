@@ -6,7 +6,7 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 10:17:57 by pmachado          #+#    #+#             */
-/*   Updated: 2025/06/07 21:10:58 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/06/09 17:10:24 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,13 @@
 
 int	get_map_start_index(char **lines)
 {
-	int	i;
+	int		i;
+	char	*trimmed;
 
 	i = 0;
 	while (lines[i])
 	{
-		char *trimmed = ft_strtrim(lines[i], " \t");
+		trimmed = ft_strtrim(lines[i], " \t");
 		if (ft_is_map_line(trimmed))
 		{
 			free(trimmed);
@@ -35,15 +36,23 @@ int	get_map_start_index(char **lines)
 
 bool	ft_is_map_line(char *line)
 {
-	while (*line)
+	int		i;
+	bool	has_content;
+
+	i = 0;
+	has_content = false;
+	while (line[i])
 	{
-		if (*line != ' ' && *line != '0' && *line != '1'
-			&& *line != 'N' && *line != 'S'
-			&& *line != 'E' && *line != 'W')
+		if (line[i] != ' ' && line[i] != '0' && line[i] != '1'
+			&& line[i] != 'N' && line[i] != 'S'
+			&& line[i] != 'E' && line[i] != 'W')
 			return (false);
-		line++;
+		if (line[i] == '0' || line[i] == '1' || line[i] == 'N' || line[i] == 'S'
+			|| line[i] == 'E' || line[i] == 'W')
+			has_content = true;
+		i++;
 	}
-	return (true);
+	return (has_content);
 }
 
 int	count_map_lines(char **lines)

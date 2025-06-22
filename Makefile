@@ -32,13 +32,15 @@ GENERAL			= main.c
 PARSING = \
 				args_validation.c \
 				errors.c \
+				errors2.c \
 				scene_check.c \
 				scene_check2.c \
 				parsing_utils.c \
 				parsing_utils2.c \
 				parsing_utils3.c \
 				parsing_utils4.c \
-				parsing_utils5.c
+				parsing_utils5.c \
+				parsing_utils6.c 
 
 EXECUTOR		= init.c 
 

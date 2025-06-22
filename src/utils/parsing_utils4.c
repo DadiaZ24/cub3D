@@ -6,7 +6,7 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 17:34:18 by pmachado          #+#    #+#             */
-/*   Updated: 2025/06/05 18:11:39 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/06/20 12:30:58 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,9 @@ int	parse_rgb(const char *line)
 {
 	char	**colors;
 	char	*trimmed[3];
-	int		r, g, b;
+	int		r;
+	int		g;
+	int		b;
 
 	colors = ft_split(line, ',');
 	if (!colors || !colors[0] || !colors[1] || !colors[2] || colors[3])
@@ -78,14 +80,15 @@ void	free_rgb_parts(char **colors, char **trimmed)
 		free(colors);
 	}
 	if (trimmed)
-		free_array(trimmed, 3);  // no free(trimmed) itself — stack allocated
+		free_array(trimmed, 3);
 	ft_end(15, NULL);
 }
 
-
 bool	ft_isdigit_str(char *str)
 {
-	int i = 0;
+	int	i;
+
+	i = 0;
 	while (str[i])
 	{
 		if (!ft_isdigit(str[i]))
