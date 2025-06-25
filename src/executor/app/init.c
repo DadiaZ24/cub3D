@@ -6,7 +6,11 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 17:43:31 by pmachado          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/06/20 13:13:40 by pmachado         ###   ########.fr       */
+=======
+/*   Updated: 2025/06/25 12:30:55 by pmachado         ###   ########.fr       */
+>>>>>>> pmachado
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +89,16 @@ t_scene	*ft_create_scene(char *path)
 void	ft_load_textures(t_game *game)
 {
 	load_texture(game, &game->wall[N], game->scene->n_path);
+	printf("[DEBUG] textura North carregada: %s\n", game->scene->n_path);
+
 	load_texture(game, &game->wall[S], game->scene->s_path);
+	printf("[DEBUG] textura South carregada: %s\n", game->scene->s_path);
+
 	load_texture(game, &game->wall[E], game->scene->e_path);
+	printf("[DEBUG] textura East carregada: %s\n", game->scene->e_path);
+
 	load_texture(game, &game->wall[W], game->scene->w_path);
+	printf("[DEBUG] textura West carregada: %s\n", game->scene->w_path);
 }
 
 static void	load_texture(t_game *game, t_img *img, char *path)

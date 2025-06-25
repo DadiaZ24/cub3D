@@ -1,7 +1,14 @@
+<<<<<<< HEAD
 NO  ./textures/north.xpm
 SO  ./textures/south.xpm   
 WE  ./textures/west.xpm
 EA  ./textures/east.xpm
+=======
+NO  ./textures/n.xpm
+SO  ./textures/s.xpm   
+WE  ./textures/w.xpm
+EA  ./textures/e.xpm
+>>>>>>> pmachado
 
 F  10,20,230
 C  0,200,255

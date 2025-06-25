@@ -32,7 +32,11 @@ GENERAL			= main.c
 PARSING = \
 				args_validation.c \
 				errors.c \
+<<<<<<< HEAD
 				errors2.c \
+=======
+				errors_2.c \
+>>>>>>> pmachado
 				scene_check.c \
 				scene_check2.c \
 				parsing_utils.c \
@@ -112,7 +116,7 @@ gdb:
 	gdb -tui ./$(NAME)
 
 download:
-	@wget https://cdn.intra.42.fr/document/document/32396/minilibx-linux.tgz --no-check-certificate
+	@wget https://cdn.intra.42.fr/document/document/36093/minilibx-linux.tgz --no-check-certificate
 	@tar -xzf minilibx-linux.tgz -C libs
 	@rm minilibx-linux.tgz
 
