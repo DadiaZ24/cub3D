@@ -6,7 +6,7 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 13:40:15 by pmachado          #+#    #+#             */
-/*   Updated: 2025/06/20 12:54:16 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/06/25 12:09:26 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	read_scene(char *path, t_scene *scene)
 		free(line);
 		if (scene->raw_lines[i])
 			i++;
+		line = get_next_line(fd);
 	}
 	scene->raw_lines[i] = NULL;
 	close(fd);

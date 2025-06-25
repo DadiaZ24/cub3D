@@ -6,7 +6,7 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 22:54:28 by pmachado          #+#    #+#             */
-/*   Updated: 2025/06/20 12:36:50 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/06/25 12:36:05 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	set_spawn(t_scene *scene, int x, int y, char dir)
 	scene->spawn.x = x;
 	scene->spawn.y = y;
 	scene->player_dir = dir;
+	printf("[DEBUG] Player spawn: (%d, %d), facing '%c'\n", x, y, dir);
 }
 
 char	**duplicate_map(t_scene *scene)
@@ -40,7 +41,10 @@ char	**duplicate_map(t_scene *scene)
 	{
 		copy[i] = ft_strdup(scene->map[i]);
 		if (!copy[i])
+		{
+			free_array(copy, i);
 			ft_end(6, NULL);
+		}
 		i++;
 	}
 	copy[i] = NULL;
