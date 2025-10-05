@@ -12,26 +12,28 @@
 
 #include "cub3d.h"
 
-static const char *print_error_msg(int nbr)
+static const char	*print_error_msg(int nbr)
 {
-	static const char *messages[] = {
-		"Invalid number of arguments",
-		"Invalid file extension",
-		"Malloc failed",
-		"File descriptor error",
-		"MLX initialization failed",
-		"Map processing error",
-		"Map invalid",
-		"Map path error",
-		"Missing elements",
-		"Duplicate element",
-		"Unknown element",
-		"Empty file",
-		"Map not closed",
-		"Player not found",
-		"Invalid color",
-		"Failed to load texture"
-	};
+	static char	*messages[16];
+	int			i;
+
+	i = 0;
+	messages[i++] = "Invalid number of arguments";
+	messages[i++] = "Invalid file extension";
+	messages[i++] = "Malloc failed";
+	messages[i++] = "File descriptor error";
+	messages[i++] = "MLX initialization failed";
+	messages[i++] = "Map processing error";
+	messages[i++] = "Map invalid";
+	messages[i++] = "Map path error";
+	messages[i++] = "Missing elements";
+	messages[i++] = "Duplicate element";
+	messages[i++] = "Unknown element";
+	messages[i++] = "Empty file";
+	messages[i++] = "Map not closed";
+	messages[i++] = "Player not found";
+	messages[i++] = "Invalid color";
+	messages[i++] = "Failed to load texture";
 	if (nbr < 1 || nbr > 16)
 		return ("Unknown error");
 	return (messages[nbr - 1]);
@@ -45,8 +47,6 @@ void	ft_end(int nbr, t_game *g)
 	exit(1);
 }
 
-//* *******************************-Para acertar ainda-********************************************/
- 
 void	free_all(t_game *g)
 {
 	int	i;
@@ -55,16 +55,16 @@ void	free_all(t_game *g)
 		return ;
 	if (g->scene)
 		free_scene(g->scene);
-	if (g->game_img.mlx_img)
+	if (g->game_img.mlx_img && g->mlx)
 		mlx_destroy_image(g->mlx, g->game_img.mlx_img);
 	i = 0;
 	while (i < 4)
 	{
-		if (g->wall[i].mlx_img)
+		if (g->wall[i].mlx_img && g->mlx)
 			mlx_destroy_image(g->mlx, g->wall[i].mlx_img);
 		i++;
 	}
-	if (g->window)
+	if (g->window && g->mlx)
 		mlx_destroy_window(g->mlx, g->window);
 	if (g->mlx)
 	{
@@ -103,16 +103,11 @@ void	free_scene(t_scene *scene)
 
 void	free_array(char **arr, int max)
 {
-	int i = 0;
+	int	i;
 
+	i = 0;
 	if (!arr)
 		return ;
 	while (i < max && arr[i])
 		free(arr[i++]);
-}
-
-int	ft_exit(t_game *g)
-{
-	free_all(g);
-	exit(EXIT_SUCCESS);
 }

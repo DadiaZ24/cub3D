@@ -24,10 +24,12 @@ int	ft_count_lines(char *path)
 	if (fd < 0)
 		ft_end(4, NULL);
 	count = 0;
-	while ((line = get_next_line(fd)))
+	line = get_next_line(fd);
+	while (line)
 	{
 		free(line);
 		count++;
+		line = get_next_line(fd);
 	}
 	close(fd);
 	return (count);

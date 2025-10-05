@@ -32,15 +32,17 @@ GENERAL			= main.c
 PARSING = \
 				args_validation.c \
 				errors.c \
+				errors2.c \
 				scene_check.c \
 				scene_check2.c \
+				scene_check3.c \
 				parsing_utils.c \
 				parsing_utils2.c \
 				parsing_utils3.c \
 				parsing_utils4.c \
 				parsing_utils5.c
 
-EXECUTOR		= init.c player.c render.c
+EXECUTOR		= init.c init2.c player.c render.c movement.c movement2.c raycasting.c dda.c
 
 UTILS			= render_utils.c
 
@@ -99,12 +101,12 @@ clean:
 fclean: clean
 	@echo "Cleaning executable and libraries..."
 	@$(RM) $(NAME)
-	@$(RM) $(LIBFT)
+	@$(MAKE) -C libs/libft fclean > /dev/null
 
 re: 			fclean all
 
 valgrind: 
-	@valgrind --leak-check=full -s --show-leak-kinds=all --track-fds=yes ./$(NAME)
+	@valgrind --leak-check=full -s --show-leak-kinds=all --track-fds=yes ./$(NAME) maps/valid_1.cub
 
 gdb:
 	gdb -tui ./$(NAME)
@@ -113,5 +115,8 @@ download:
 	@wget https://cdn.intra.42.fr/document/document/32396/minilibx-linux.tgz --no-check-certificate
 	@tar -xzf minilibx-linux.tgz -C libs
 	@rm minilibx-linux.tgz
+
+norm:
+	norminette include src
 
 .PHONY: 		all clean fclean re

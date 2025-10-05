@@ -16,12 +16,13 @@
 
 int	get_map_start_index(char **lines)
 {
-	int	i;
+	int		i;
+	char	*trimmed;
 
 	i = 0;
 	while (lines[i])
 	{
-		char *trimmed = ft_strtrim(lines[i], " \t");
+		trimmed = ft_strtrim(lines[i], " \t");
 		if (ft_is_map_line(trimmed))
 		{
 			free(trimmed);

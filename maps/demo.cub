@@ -1,12 +1,9 @@
-
 NO      ./maps/textures/redbrick.xpm
 SO      ./maps/textures/redbrick.xpm
 WE      ./maps/textures/eagle.xpm
 EA      ./maps/textures/eagle.xpm
-
 F       66,38,0
 C       210,180,140
-
         1111111111111111111111111        1111111111111111111111111         
         1000000000110000000000001        100000000110000010000001 
         1011000001110000000000001        100000S001110000010000001 

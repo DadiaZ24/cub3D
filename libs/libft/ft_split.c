@@ -3,56 +3,61 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joao-ppe <joao-ppe@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: ddias-fe <ddias-fe@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/28 16:35:29 by joao-ppe          #+#    #+#             */
-/*   Updated: 2023/05/04 17:44:28 by joao-ppe         ###   ########.fr       */
+/*   Created: 2024/04/11 15:23:56 by ddias-fe          #+#    #+#             */
+/*   Updated: 2024/04/11 15:23:56 by ddias-fe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	count_words(char const *s, char c)
+int	ft_countwords(char const *s, char c)
 {
-	size_t	count;
-	size_t	i;
+	int	i;
+	int	count;
 
-	count = 0;
 	i = 0;
+	count = 0;
 	while (s[i])
 	{
 		while (s[i] == c)
 			i++;
-		if (s[i])
+		if ((s[i] != c) && s[i])
 			count++;
-		while (s[i] && s[i] != c)
+		while ((s[i] != c) && s[i])
 			i++;
 	}
 	return (count);
 }
 
-size_t	word_size(char *s, char c)
+int	wordlen(char const *s, char c)
 {
-	size_t	i;
+	int	i;
+	int	count;
 
 	i = 0;
-	while (s[i] && s[i] != c)
+	count = 0;
+	while (s[i] == c)
 		i++;
-	return (i);
+	while (s[i] && s[i] != c)
+	{
+		i++;
+		count++;
+	}
+	return (count);
 }
 
-char	*words(char *s, char c)
+char	*makeword(char const *s, char c)
 {
-	size_t	i;
-	size_t	len;
 	char	*word;
+	int		i;
 
-	len = word_size(s, c);
-	word = malloc((len + 1) * sizeof(char));
+	i = 0;
+	word = malloc(sizeof(char) * (wordlen(s, c) + 1));
 	if (!word)
 		return (NULL);
-	i = 0;
-	while (i < len)
+	while (s[i] != c && s[i])
 	{
 		word[i] = s[i];
 		i++;
@@ -61,43 +66,38 @@ char	*words(char *s, char c)
 	return (word);
 }
 
+char	**free_data_split(char **split, int i)
+{
+	while (i--)
+		free(split[i]);
+	free(split);
+	return (NULL);
+}
+
 char	**ft_split(char const *s, char c)
 {
-	char	**res;
-	size_t	i;
+	char	**newstring;
+	int		i;
+	int		j;
+	int		count_words;
 
 	if (!s)
 		return (NULL);
-	res = malloc((count_words(s, c) + 1) * sizeof(char *));
-	if (!res)
+	i = -1;
+	j = 0;
+	count_words = ft_countwords(s, c);
+	newstring = malloc(sizeof(char *) * (count_words + 1));
+	if (!newstring)
 		return (NULL);
-	i = 0;
-	while (*s)
+	while (++i < count_words)
 	{
-		while (*s && *s == c)
-			s++;
-		if (*s)
-		{
-			res[i] = words((char *)s, c);
-			i++;
-		}
-		while (*s && *s != c)
-			s++;
+		while (s[j] == c)
+			j++;
+		newstring[i] = makeword(s + j, c);
+		if (!newstring[i])
+			return (free_data_split(newstring, i));
+		j += wordlen(s + j, c);
 	}
-	res[i] = 0;
-	return (res);
+	newstring[i] = NULL;
+	return (newstring);
 }
-/* 
-int	main(void)
-{
-	char	*str = "This is a string.";
-	char	**newstr;
-	int		i;
-
-	newstr = ft_split(str, ' ');
-	i = 0;
-	while (newstr[i])
-		printf("New: %s\n", newstr[i++]);
-	return (0);
-}
- */

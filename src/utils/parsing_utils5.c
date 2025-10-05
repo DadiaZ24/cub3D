@@ -47,17 +47,18 @@ char	**duplicate_map(t_scene *scene)
 	return (copy);
 }
 
-void	flood_fill(char **map, int max_x, int max_y, int x, int y)
+void	flood_fill(char **map, t_coords *max_coords, int x, int y)
 {
-	if (y < 0 || y >= max_y || x < 0 || x >= max_x)
+	if (y < 0 || y >= max_coords->y || x < 0
+		|| x >= max_coords->x)
 		ft_end(7, NULL);
 	if (map[y][x] == ' ' || map[y][x] == '\0')
 		ft_end(13, NULL);
 	if (map[y][x] == '1' || map[y][x] == 'F')
 		return ;
 	map[y][x] = 'F';
-	flood_fill(map, max_x, max_y, x + 1, y);
-	flood_fill(map, max_x, max_y, x - 1, y);
-	flood_fill(map, max_x, max_y, x, y + 1);
-	flood_fill(map, max_x, max_y, x, y - 1);
+	flood_fill(map, max_coords, x + 1, y);
+	flood_fill(map, max_coords, x - 1, y);
+	flood_fill(map, max_coords, x, y + 1);
+	flood_fill(map, max_coords, x, y - 1);
 }

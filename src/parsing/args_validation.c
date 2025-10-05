@@ -17,7 +17,7 @@ bool	ft_validate_args(int ac, char **av)
 	if (ac != 2)
 		ft_end(1, NULL);
 	if (ft_strlen(av[1]) < 4
-		|| ft_strncmp(av[1] + ft_strlen(av[1]) - 4, ".cub", 4) != 0)// verifica se o ficheiro tem a extensao .cub
+		|| ft_strncmp(av[1] + ft_strlen(av[1]) - 4, ".cub", 4) != 0)
 		ft_end(2, NULL);
 	return (true);
 }

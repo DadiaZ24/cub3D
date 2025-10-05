@@ -3,103 +3,83 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joao-ppe <joao-ppe@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: ddias-fe <ddias-fe@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/16 13:19:51 by joao-ppe          #+#    #+#             */
-/*   Updated: 2023/07/04 17:43:09 by joao-ppe         ###   ########.fr       */
+/*   Created: 2024/05/14 20:53:50 by ddias-fe          #+#    #+#             */
+/*   Updated: 2024/07/03 20:25:55 by ddias-fe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*clean_memory(char **stash, char **buffer)
+char	*free_data(char *stash, char *buffer)
 {
-	free(*stash);
-	free(*buffer);
+	free(stash);
+	free(buffer);
 	return (NULL);
 }
 
-char	*store_leftovers(char *stash)
+char	*read_from_file(int fd, char *stash)
 {
-	char	*leftover;
-	int		len;
-	int		skip;
-
-	leftover = NULL;
-	len = gnl_strclen(stash, '\0');
-	if (gnl_strchr(stash, '\n'))
-		skip = gnl_strclen(stash, '\n');
-	else if (gnl_strchr(stash, '\0'))
-		skip = len;
-	else
-		skip = 0;
-	leftover = gnl_strndup(stash + skip, len - skip);
-	free(stash);
-	if (!leftover)
-		return (NULL);
-	if (leftover[0] == '\0')
-	{
-		free (leftover);
-		return (NULL);
-	}
-	return (leftover);
-}
-
-char	*read_file(int fd, char *stash)
-{
-	int		bytes_read;
 	char	*buffer;
+	int		read_size;
 
-	bytes_read = BUFFER_SIZE;
+	read_size = BUFFER_SIZE;
 	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buffer)
 		return (NULL);
 	*buffer = 0;
-	while (bytes_read != 0 && !gnl_strchr(buffer, '\n'))
+	while (read_size != 0 && !ft_strchr(buffer, '\n'))
 	{
-		bytes_read = read(fd, buffer, BUFFER_SIZE);
-		if (bytes_read < 0)
-			return (clean_memory(&buffer, &stash));
-		buffer[bytes_read] = '\0';
-		stash = gnl_strjoin(stash, buffer);
+		read_size = read(fd, buffer, BUFFER_SIZE);
+		if (read_size < 0)
+			return (free_data(stash, buffer));
+		buffer[read_size] = '\0';
+		stash = ft_strjoin(stash, buffer);
 	}
-	if (bytes_read == -1 || *stash == '\0')
-		return (clean_memory(&buffer, &stash));
+	if (read_size == -1 || *stash == '\0')
+		return (free_data(stash, buffer));
 	free(buffer);
 	return (stash);
 }
 
-char	*get_new_line(char *stash)
+char	*leftovers(char *stash)
 {
-	int		len;
-	char	*new_line;
+	char	*leftover;
 
-	len = gnl_strclen(stash, '\n');
-	new_line = malloc(sizeof(char) * (len + 2));
-	if (!new_line)
+	leftover = ft_strndup(stash + ft_strclen(stash, '\n') + 1,
+			ft_strclen(stash, '\0') - ft_strclen(stash, '\n'));
+	free (stash);
+	if (!leftover)
 		return (NULL);
-	if (stash[0] != '\n')
-		gnl_strncpy(new_line, stash, len);
-	else
-		gnl_strncpy(new_line, "\n", 2);
-	return (new_line);
+	return (leftover);
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*stash[OPENF_MAX];
-	char		*next_line;
+	static char	*stash;
+	char		*new_line;
+	char		*tmp;
 
+	tmp = malloc(sizeof(char) * (BUFFER_SIZE));
+	if (!tmp)
+		return (NULL);
+	if (!stash)
+		if (read(fd, tmp, BUFFER_SIZE < 1))
+			return (free(tmp), NULL);
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	if (!stash[fd])
-		stash[fd] = NULL;
-	stash[fd] = read_file(fd, stash[fd]);
-	if (!stash[fd])
+	free(tmp);
+	if (!stash)
+		stash = NULL;
+	stash = read_from_file(fd, stash);
+	if (!stash)
 		return (NULL);
-	next_line = get_new_line(stash[fd]);
-	if (!next_line)
+	new_line = ft_strndup(stash, ft_strclen(stash, '\n'));
+	if (!new_line)
 		return (NULL);
-	stash[fd] = store_leftovers(stash[fd]);
-	return (next_line);
+	stash = leftovers(stash);
+	if (!stash)
+		free(stash);
+	return (new_line);
 }
