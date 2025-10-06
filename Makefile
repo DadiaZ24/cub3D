@@ -112,7 +112,7 @@ gdb:
 	gdb -tui ./$(NAME)
 
 download:
-	@wget https://cdn.intra.42.fr/document/document/32396/minilibx-linux.tgz --no-check-certificate
+	@wget https://cdn.intra.42.fr/document/document/38531/minilibx-linux.tgz --no-check-certificate
 	@tar -xzf minilibx-linux.tgz -C libs
 	@rm minilibx-linux.tgz
 
