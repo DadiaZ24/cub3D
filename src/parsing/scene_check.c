@@ -6,84 +6,62 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 13:40:15 by pmachado          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2025/06/20 12:54:16 by pmachado         ###   ########.fr       */
-=======
-/*   Updated: 2025/06/25 12:09:26 by pmachado         ###   ########.fr       */
->>>>>>> pmachado
+/*   Updated: 2025/06/07 21:11:58 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static bool	all_elements_found(t_scene *scene)
+{
+	return (scene->n_path && scene->s_path && scene->e_path
+		&& scene->w_path && scene->floor_color != -1 && scene->sky_color != -1);
+}
 
 void	check_scene(char *path, t_scene *scene)
 {
 	read_scene(path, scene);
 	check_for_empty(scene);
 	validate_elements(scene);
-	printf("[DEBUG] n_path: %s\n", scene->n_path);
-	printf("[DEBUG] s_path: %s\n", scene->s_path);
-	printf("[DEBUG] w_path: %s\n", scene->w_path);
-	printf("[DEBUG] e_path: %s\n", scene->e_path);
-	printf("[DEBUG] floor_color: %d\n", scene->floor_color);
-	printf("[DEBUG] sky_color: %d\n", scene->sky_color);
 	separate_map(scene);
-	validate_map_characters(scene->map);
 	validate_map(scene);
-	for (int j = 0; scene->map[j]; j++)
-		printf("[POST-MAP] %s\n", scene->map[j]);
-	printf("[DEBUG] Mapa Valido :)\n");
+}
+
+static void	read_scene_while(t_scene *scene, t_read_scene *tmp_scene)
+{
+	tmp_scene->clean = spaces_for_tabs(tmp_scene->line);
+	tmp_scene->clean2 = ft_strtrim(tmp_scene->clean, "\n");
+	scene->raw_lines[tmp_scene->i] = ft_strtrim(tmp_scene->clean2, "\r");
+	if (tmp_scene->clean != tmp_scene->line)
+		free(tmp_scene->clean);
+	if (tmp_scene->clean2 != tmp_scene->line)
+		free(tmp_scene->clean2);
+	free(tmp_scene->line);
+	if (!scene->raw_lines[tmp_scene->i])
+		ft_end(3, NULL);
+	tmp_scene->i++;
 }
 
 void	read_scene(char *path, t_scene *scene)
 {
-	int		fd;
-	int		line_count;
-	int		i;
-	char	*line;
+	t_read_scene	tmp_scene;
 
-	fd = open(path, O_RDONLY);
-	if (fd < 0)
+	tmp_scene.fd = open(path, O_RDONLY);
+	if (tmp_scene.fd < 0)
 		ft_end(4, NULL);
-	line_count = ft_count_lines(path);
-	scene->raw_lines = ft_calloc(line_count + 1, sizeof(char *));
+	tmp_scene.line_count = ft_count_lines(path);
+	scene->raw_lines = ft_calloc(tmp_scene.line_count + 1, sizeof(char *));
 	if (!scene->raw_lines)
 		ft_end(3, NULL);
-	i = 0;
-	line = get_next_line(fd);
-	while (line)
+	tmp_scene.i = 0;
+	tmp_scene.line = get_next_line(tmp_scene.fd);
+	while (tmp_scene.line)
 	{
-		scene->raw_lines[i] = process_scene_line(line);
-		free(line);
-		if (scene->raw_lines[i])
-			i++;
-<<<<<<< HEAD
-=======
-		line = get_next_line(fd);
->>>>>>> pmachado
+		read_scene_while(scene, &tmp_scene);
+		tmp_scene.line = get_next_line(tmp_scene.fd);
 	}
-	scene->raw_lines[i] = NULL;
-	close(fd);
-}
-
-void	check_for_empty(t_scene *scene)
-{
-	if (!scene->raw_lines || !scene->raw_lines[0])
-		ft_end(12, NULL);
-}
-
-void	separate_map(t_scene *scene)
-{
-	int	start;
-	int	count;
-
-	start = get_map_start_index(scene->raw_lines);
-	if (start == -1)
-		ft_end(8, NULL);
-	count = count_map_lines(scene->raw_lines + start);
-	scene->map_size.y = count;
-	copy_map_lines(scene, start, count);
-	scene->map_size.x = ft_get_max_line_length(scene->map);
+	scene->raw_lines[tmp_scene.i] = NULL;
+	close(tmp_scene.fd);
 }
 
 void	validate_elements(t_scene *scene)

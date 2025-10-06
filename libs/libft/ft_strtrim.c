@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joao-ppe <joao-ppe@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: ddias-fe <ddias-fe@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/15 17:00:42 by joao-ppe          #+#    #+#             */
-/*   Updated: 2023/04/15 17:00:42 by joao-ppe         ###   ########.fr       */
+/*   Created: 2024/04/09 14:58:35 by ddias-fe          #+#    #+#             */
+/*   Updated: 2024/04/09 14:58:35 by ddias-fe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	check_char(char const c, char const	*set)
+int	ft_check(char const *s, char const c)
 {
 	int	i;
 
 	i = 0;
-	while (set[i])
+	while (s[i])
 	{
-		if (c == set[i])
+		if (s[i] == c)
 			return (1);
 		i++;
 	}
@@ -28,29 +28,29 @@ static int	check_char(char const c, char const	*set)
 
 char	*ft_strtrim(char const *s1, char const *set)
 {
-	size_t	len;
-	char	*new;
+	int		i;
+	int		s;
+	int		size;
+	char	*newstring;
 
-	if (!s1 || !set)
+	if (!s1)
 		return (NULL);
-	while (s1)
+	size = ft_strlen(s1);
+	i = 0;
+	s = 0;
+	while (s1[s] && ft_check(set, s1[s]))
+		s++;
+	while (size > s && ft_check(set, s1[size - 1]))
+		size--;
+	newstring = (char *)malloc(sizeof(char) * (size - s + 1));
+	if (!newstring)
+		return (0);
+	while (size > s)
 	{
-		if (check_char(((char)*s1), set) == 1)
-			s1++;
-		else
-			break ;
+		newstring[i] = s1[s];
+		i++;
+		s++;
 	}
-	len = ft_strlen(s1);
-	while (len != 0)
-	{
-		if (check_char(s1[len - 1], set) == 1)
-			len--;
-		else
-			break ;
-	}
-	new = malloc(sizeof(char) * len + 1);
-	if (!new)
-		return (NULL);
-	ft_strlcpy(new, (char *)s1, len + 1);
-	return (new);
+	newstring[i] = '\0';
+	return (newstring);
 }

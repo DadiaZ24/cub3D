@@ -6,7 +6,7 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 13:52:23 by pmachado          #+#    #+#             */
-/*   Updated: 2025/06/20 12:45:51 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/06/05 18:13:55 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,6 @@ void	parse_no(t_scene *scene, char *line)
 	if (scene->n_path)
 		ft_end(10, NULL);
 	scene->n_path = ft_strtrim(line + 3, " \t");
-	if (!scene->n_path)
-		ft_end(3, NULL);
-	validate_texture_path(scene->n_path);
 }
 
 void	parse_so(t_scene *scene, char *line)
@@ -45,9 +42,6 @@ void	parse_so(t_scene *scene, char *line)
 	if (scene->s_path)
 		ft_end(10, NULL);
 	scene->s_path = ft_strtrim(line + 3, " \t");
-	if (!scene->s_path)
-		ft_end(3, NULL);
-	validate_texture_path(scene->s_path);
 }
 
 void	parse_we(t_scene *scene, char *line)
@@ -55,9 +49,6 @@ void	parse_we(t_scene *scene, char *line)
 	if (scene->w_path)
 		ft_end(10, NULL);
 	scene->w_path = ft_strtrim(line + 3, " \t");
-	if (!scene->w_path)
-		ft_end(3, NULL);
-	validate_texture_path(scene->w_path);
 }
 
 void	parse_ea(t_scene *scene, char *line)
@@ -65,7 +56,4 @@ void	parse_ea(t_scene *scene, char *line)
 	if (scene->e_path)
 		ft_end(10, NULL);
 	scene->e_path = ft_strtrim(line + 3, " \t");
-	if (!scene->e_path)
-		ft_end(3, NULL);
-	validate_texture_path(scene->e_path);
 }

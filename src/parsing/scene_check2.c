@@ -6,7 +6,7 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 13:53:41 by pmachado          #+#    #+#             */
-/*   Updated: 2025/06/20 13:09:36 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/06/07 20:52:47 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,7 @@ void	validate_map_characters(char **map)
 {
 	int	y;
 	int	x;
-	int	total;
 
-	total = 0;
 	y = 0;
 	while (map[y])
 	{
@@ -27,7 +25,6 @@ void	validate_map_characters(char **map)
 		{
 			if (!is_valid_map_char(map[y][x]))
 				ft_end(7, NULL);
-			total++;
 			x++;
 		}
 		y++;
@@ -36,8 +33,33 @@ void	validate_map_characters(char **map)
 
 void	validate_map(t_scene *scene)
 {
+	pad_map(scene);
 	find_player(scene);
 	check_closed_map(scene);
+}
+
+void	pad_map(t_scene *scene)
+{
+	int		y;
+	int		len;
+	char	*new_line;
+
+	y = 0;
+	while (scene->map[y])
+	{
+		len = ft_strlen(scene->map[y]);
+		if (len < scene->map_size.x)
+		{
+			new_line = ft_calloc(scene->map_size.x + 1, sizeof(char));
+			if (!new_line)
+				ft_end(3, NULL);
+			ft_memset(new_line, ' ', scene->map_size.x);
+			ft_memcpy(new_line, scene->map[y], len);
+			free(scene->map[y]);
+			scene->map[y] = new_line;
+		}
+		y++;
+	}
 }
 
 void	find_player(t_scene *scene)
@@ -72,17 +94,18 @@ void	find_player(t_scene *scene)
 void	check_closed_map(t_scene *scene)
 {
 	char		**copy;
-	int			x;
-	int			y;
-	t_fill_data	data;
+	int			i;
+	t_coords	coords;
+	t_coords	max_coords;
 
-	x = scene->spawn.x;
-	y = scene->spawn.y;
-	replace_spaces_with_1s(scene->map);
+	i = -1;
+	coords.x = scene->spawn.x;
+	coords.y = scene->spawn.y;
+	max_coords.x = scene->map_size.x;
+	max_coords.y = scene->map_size.y;
 	copy = duplicate_map(scene);
-	data.map = copy;
-	data.max_x = scene->map_size.x;
-	data.max_y = scene->map_size.y;
-	flood_fill(&data, x, y);
-	free_array(copy, scene->map_size.y);
+	flood_fill(copy, &max_coords, coords.x, coords.y);
+	while (copy[++i])
+		free(copy[i]);
+	free(copy);
 }
