@@ -6,7 +6,7 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 13:53:41 by pmachado          #+#    #+#             */
-/*   Updated: 2025/06/20 13:09:36 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/10/09 14:15:17 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	find_player(t_scene *scene)
 			if (ft_strchr("NSEW", scene->map[y][x]))
 			{
 				if (found)
-					ft_end(10, NULL);
+					ft_end_scene(10, scene);
 				set_spawn(scene, x, y, scene->map[y][x]);
 				scene->map[y][x] = '0';
 				found = true;
@@ -66,7 +66,7 @@ void	find_player(t_scene *scene)
 		y++;
 	}
 	if (!found)
-		ft_end(14, NULL);
+		ft_end_scene(14, scene);
 }
 
 void	check_closed_map(t_scene *scene)

@@ -6,7 +6,7 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 22:54:28 by pmachado          #+#    #+#             */
-/*   Updated: 2025/06/25 12:36:05 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/10/09 12:26:39 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,13 @@ void	flood_fill(t_fill_data *data, int x, int y)
 	flood_fill(data, x, y - 1);
 }
 
-void	validate_texture_path(char *path)
+bool	validate_texture_path(char *path)
 {
 	int	fd;
 
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
-		ft_end(17, NULL);
+		return (false);
 	close(fd);
+	return (true);
 }

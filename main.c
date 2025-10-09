@@ -6,7 +6,7 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:13:55 by ddias-fe          #+#    #+#             */
-/*   Updated: 2025/06/25 12:27:50 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/10/09 16:38:43 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,6 @@ int	main(int ac, char **av)
 	// 	ft_start_game(game);
 	// clean_exit(game);	
 	// printf("Game executed successfully.\n");
-	free_all(game);
 	return (0);
 }
 

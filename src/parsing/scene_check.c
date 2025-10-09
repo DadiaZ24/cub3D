@@ -6,7 +6,7 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 13:40:15 by pmachado          #+#    #+#             */
-/*   Updated: 2025/06/25 12:09:26 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/10/09 14:27:25 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,11 @@ void	read_scene(char *path, t_scene *scene)
 
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
-		ft_end(4, NULL);
+		ft_end_scene(4, scene);
 	line_count = ft_count_lines(path);
 	scene->raw_lines = ft_calloc(line_count + 1, sizeof(char *));
 	if (!scene->raw_lines)
-		ft_end(3, NULL);
+		ft_end_scene(3, scene);
 	i = 0;
 	line = get_next_line(fd);
 	while (line)
@@ -62,7 +62,7 @@ void	read_scene(char *path, t_scene *scene)
 void	check_for_empty(t_scene *scene)
 {
 	if (!scene->raw_lines || !scene->raw_lines[0])
-		ft_end(12, NULL);
+		ft_end_scene(12, scene);
 }
 
 void	separate_map(t_scene *scene)
@@ -72,7 +72,7 @@ void	separate_map(t_scene *scene)
 
 	start = get_map_start_index(scene->raw_lines);
 	if (start == -1)
-		ft_end(8, NULL);
+		ft_end_scene(8, scene);
 	count = count_map_lines(scene->raw_lines + start);
 	scene->map_size.y = count;
 	copy_map_lines(scene, start, count);
@@ -102,5 +102,5 @@ void	validate_elements(t_scene *scene)
 	}
 	if (!scene->n_path || !scene->s_path || !scene->e_path || !scene->w_path
 		|| scene->floor_color == -1 || scene->sky_color == -1)
-		ft_end(9, NULL);
+		ft_end_scene(9, scene);
 }
