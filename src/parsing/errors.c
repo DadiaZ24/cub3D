@@ -6,7 +6,7 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 20:23:43 by pmachado          #+#    #+#             */
-/*   Updated: 2025/10/09 15:00:11 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/10/09 22:29:05 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,21 +42,6 @@ static const char	*print_error_msg(int nbr)
 void	ft_end(int nbr, t_game *g)
 {
 	printf("Error\n%s\n", print_error_msg(nbr));
-	if (g && nbr != 1 && nbr != 2)
-		free_all(g);
-	exit(1);
-}
-
-void	ft_end_scene(int nbr, t_scene *scene)
-{
-	ft_end_scene_full(nbr, scene, NULL);
-}
-
-void	ft_end_scene_full(int nbr, t_scene *scene, t_game *g)
-{
-	printf("Error\n%s\n", print_error_msg(nbr));
-	if (scene)
-		free_scene(scene);
 	if (g && nbr != 1 && nbr != 2)
 		free_all(g);
 	exit(1);

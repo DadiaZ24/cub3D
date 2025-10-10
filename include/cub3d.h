@@ -6,7 +6,7 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:15:38 by ddias-fe          #+#    #+#             */
-/*   Updated: 2025/10/09 16:44:34 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/10/09 22:37:57 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,17 +176,17 @@ bool		ft_validate_args(int ac, char **av);
 t_game		*ft_init_game(char *map_path);
 t_game		*ft_create_game(void);
 void		ft_init_mlx(t_game *game);
-t_scene		*ft_create_scene(char *path);
+t_scene		*ft_create_scene(char *path, t_game *game);
 void		ft_load_textures(t_game *game);
 
 //PARSING
-void		check_scene(char *path, t_scene *scene);
-void		read_scene(char *path, t_scene *scene);
-void		check_for_empty(t_scene *scene);
-void		separate_map(t_scene *scene);
-void		validate_elements(t_scene *scene);
-void		validate_map_characters(char **map);
-void		validate_map(t_scene *scene);
+void		check_scene(char *path, t_game *game);
+void		read_scene(char *path, t_game *game);
+void		check_for_empty(t_game *game);
+void		separate_map(t_game *game);
+void		validate_elements(t_game *game);
+void		validate_map_characters(t_game *game);
+void		validate_map(t_game *game);
 
 			//----------read_scene-----------//
 int			ft_count_lines(char *path);
@@ -194,41 +194,43 @@ char		*process_scene_line(char *line);
 char		*spaces_for_tabs(char *line);
 int			has_tabs(const char *line);
 void		change_tabs(const char *line, char *new_line);
-bool		all_elements_found(t_scene *scene);
+bool		all_elements_found(t_scene *scene); //pode manter t_scene
+
 			//----------separate_map---------//
 int			get_map_start_index(char **lines);
 int			count_map_lines(char **lines);
-void		copy_map_lines(t_scene *scene, int start, int count);
+void		copy_map_lines(t_game *game, int start, int count);
 int			ft_get_max_line_length(char **map);
 bool		ft_is_map_line(char *line);
+
 			//----------validate_elements---------//
-void		parse_textures(t_scene *scene, char *line);
-void		parse_no(t_scene *scene, char *line);
-void		parse_so(t_scene *scene, char *line);
-void		parse_we(t_scene *scene, char *line);
-void		parse_ea(t_scene *scene, char *line);
-void		parse_colors(t_scene *scene, char *line);
+void		parse_textures(t_game *game, char *line);
+void		parse_no(t_game *game, char *line);
+void		parse_so(t_game *game, char *line);
+void		parse_we(t_game *game, char *line);
+void		parse_ea(t_game *game, char *line);
+void		parse_colors(t_game *game, char *line);
 int			parse_rgb(const char *line);
 char		*trim_and_check_digit(char *str);
 void		free_rgb_parts(char **arr, char **trimmed);
 bool		ft_isdigit_str(char *str);
 bool		validate_texture_path(char *path);
+
 			//----------validate_map_chars-------//
 bool		is_valid_map_char(char c);
+
 			//----------validate_map-------------//
 //void		pad_map(t_scene *scene);
-void		find_player(t_scene *scene);
-void		set_spawn(t_scene *scene, int x, int y, char dir);
+void		find_player(t_game *game);
+void		set_spawn(t_scene *scene, int x, int y, char dir); //pode manter t_scene
 void		replace_spaces_with_1s(char **map);
-void		check_closed_map(t_scene *scene);
-char		**duplicate_map(t_scene *scene);
-void		flood_fill(t_fill_data *data, int x, int y);
+void		check_closed_map(t_game *game);
+char		**duplicate_map(t_game *game);
+void		flood_fill(t_fill_data *data, int x, int y, t_game *game);
 
 
 //ERROR
 void	ft_end(int nbr, t_game *g);
-void	ft_end_scene(int nbr, t_scene *scene);
-void	ft_end_scene_full(int nbr, t_scene *scene, t_game *g);
 void	free_all(t_game *g);
 void	free_scene(t_scene *scene);
 void	free_array(char **arr, int max);
