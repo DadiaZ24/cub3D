@@ -6,7 +6,7 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 13:52:23 by pmachado          #+#    #+#             */
-/*   Updated: 2025/10/09 22:02:17 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/10/12 21:21:54 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	parse_no(t_game *game, char *line)
 	game->scene->n_path = ft_strtrim(line + 3, " \t");
 	if (!game->scene->n_path)
 		ft_end(3, game);
-	if(!validate_texture_path(game->scene->n_path))
+	if (!validate_texture_path(game->scene->n_path))
 	{
 		free(line);
 		ft_end(10, game);
@@ -51,7 +51,7 @@ void	parse_so(t_game *game, char *line)
 	game->scene->s_path = ft_strtrim(line + 3, " \t");
 	if (!game->scene->s_path)
 		ft_end(3, game);
-	if(!validate_texture_path(game->scene->s_path))
+	if (!validate_texture_path(game->scene->s_path))
 	{
 		free(line);
 		ft_end(10, game);
@@ -65,7 +65,7 @@ void	parse_we(t_game *game, char *line)
 	game->scene->w_path = ft_strtrim(line + 3, " \t");
 	if (!game->scene->w_path)
 		ft_end(3, game);
-	if(!validate_texture_path(game->scene->w_path))
+	if (!validate_texture_path(game->scene->w_path))
 	{
 		free(line);
 		ft_end(10, game);
@@ -79,7 +79,7 @@ void	parse_ea(t_game *game, char *line)
 	game->scene->e_path = ft_strtrim(line + 3, " \t");
 	if (!game->scene->e_path)
 		ft_end(3, game);
-	if(!validate_texture_path(game->scene->e_path))
+	if (!validate_texture_path(game->scene->e_path))
 	{
 		free(line);
 		ft_end(10, game);

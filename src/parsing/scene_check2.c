@@ -6,7 +6,7 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 13:53:41 by pmachado          #+#    #+#             */
-/*   Updated: 2025/10/09 22:21:49 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/10/12 21:19:25 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 void	validate_map_characters(t_game *game)
 {
-	int	y;
-	int	x;
-	int	total;
-	char **map;
-	
+	int		y;
+	int		x;
+	int		total;
+	char	**map;
+
 	map = game->scene->map;
 	total = 0;
 	y = 0;
@@ -47,22 +47,20 @@ void	find_player(t_game *game)
 	int		y;
 	int		x;
 	bool	found;
-	t_scene	*scene;
 
-	scene = game->scene;
 	found = false;
 	y = 0;
-	while (scene->map[y])
+	while (game->scene->map[y])
 	{
 		x = 0;
-		while (scene->map[y][x])
+		while (game->scene->map[y][x])
 		{
-			if (ft_strchr("NSEW", scene->map[y][x]))
+			if (ft_strchr("NSEW", game->scene->map[y][x]))
 			{
 				if (found)
 					ft_end(10, game);
-				set_spawn(scene, x, y, scene->map[y][x]);
-				scene->map[y][x] = '0';
+				set_spawn(game->scene, x, y, game->scene->map[y][x]);
+				game->scene->map[y][x] = '0';
 				found = true;
 			}
 			x++;

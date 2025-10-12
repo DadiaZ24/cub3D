@@ -6,7 +6,7 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 22:54:28 by pmachado          #+#    #+#             */
-/*   Updated: 2025/10/09 22:25:10 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/10/12 21:22:13 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ char	**duplicate_map(t_game *game)
 {
 	char	**copy;
 	int		i;
-	t_scene *scene;
-	
+	t_scene	*scene;
+
 	scene = game->scene;
 	copy = malloc(sizeof(char *) * (scene->map_size.y + 1));
 	if (!copy)

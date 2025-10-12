@@ -6,7 +6,7 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 10:17:57 by pmachado          #+#    #+#             */
-/*   Updated: 2025/10/09 22:39:54 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/10/12 21:20:09 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ int	count_map_lines(char **lines)
 
 void	copy_map_lines(t_game *game, int start, int count)
 {
-	int	i;
-	t_scene *scene;
+	int		i;
+	t_scene	*scene;
 
 	scene = game->scene;
 	scene->map = ft_calloc(count + 1, sizeof(char *));
