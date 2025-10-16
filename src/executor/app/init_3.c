@@ -15,11 +15,11 @@
 void	get_player_angle(t_game *game, int x, int y)
 {
 	if (game->scene->map[y][x] == 'N')
-		game->player.angle = N;
+		game->player.angle = -PI / 2;
 	else if (game->scene->map[y][x] == 'S')
-		game->player.angle = S;
+		game->player.angle = PI / 2;
 	else if (game->scene->map[y][x] == 'E')
-		game->player.angle = E;
+		game->player.angle = 0;
 	else if (game->scene->map[y][x] == 'W')
-		game->player.angle = W;
+		game->player.angle = PI;
 }

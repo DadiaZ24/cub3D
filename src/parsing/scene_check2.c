@@ -61,7 +61,6 @@ void	find_player(t_game *game)
 				if (found)
 					ft_end(10, game);
 				set_spawn(game->scene, x, y, game->scene->map[y][x]);
-				printf("DEBUG Player spawn set at (%d, %d) facing %c\n", x, y, game->scene->map[y][x]);
 				game->scene->map[y][x] = '0';
 				found = true;
 			}
