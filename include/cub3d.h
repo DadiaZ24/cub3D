@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddias-fe <ddias-fe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:15:38 by ddias-fe          #+#    #+#             */
-/*   Updated: 2025/10/16 12:53:40 by ddias-fe         ###   ########.fr       */
+/*   Updated: 2025/10/16 14:35:32 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,7 +217,6 @@ typedef struct s_game
 
 //EXECUTOR
 bool	init_game_data(t_game *game);
-bool	get_walls(t_game *game);
 void	init_player(t_game *game);
 void	get_player_angle(t_game *game, int x, int y);
 void	dda(t_game *game);

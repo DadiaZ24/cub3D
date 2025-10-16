@@ -1,8 +1,8 @@
 
-NO      ./maps/textures/redbrick.xpm
-SO      ./maps/textures/redbrick.xpm
-WE      ./maps/textures/eagle.xpm
-EA      ./maps/textures/eagle.xpm
+NO              textures/n.xpm                  
+SO              textures/s.xpm
+WE              textures/w.xpm
+EA              textures/eagle.xpm
 
 F       66,38,0
 C       210,180,140

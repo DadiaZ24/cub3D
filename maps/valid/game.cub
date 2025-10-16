@@ -1,10 +1,10 @@
-NO textures/game/wall_north.xpm
-SO textures/game/wall_south.xpm
-WE textures/game/wall_west.xpm
-EA textures/game/wall_east.xpm
+NO textures/redbrick.xpm
+SO textures/eagle.xpm
+WE textures/redbrick.xpm
+EA textures/eagle.xpm
 
-F 236, 211, 159
-C 85, 90, 130
+F 236, 211, 129
+C 85, 90, 10
 
 11111
 10001

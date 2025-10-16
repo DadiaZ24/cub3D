@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddias-fe <ddias-fe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/12 21:12:27 by pmachado          #+#    #+#             */
-/*   Updated: 2025/10/16 14:15:22 by ddias-fe         ###   ########.fr       */
+/*   Updated: 2025/10/16 14:35:29 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,23 +53,6 @@ bool	init_game_data(t_game *game)
 	mlx_hook(game->window, KeyPress, KeyPressMask, key_press, game);
 	mlx_hook(game->window, KeyRelease, KeyReleaseMask, key_release, game);
 	mlx_hook(game->window, DestroyNotify, StructureNotifyMask, ft_exit, game);
-	return (true);
-}
-
-bool	get_walls(t_game *game)
-{
-	game->wall[N].mlx_img = mlx_xpm_file_to_image(game->mlx, TEXTURE_N,
-			&game->wall[N].width, &game->wall[N].height);
-	game->wall[S].mlx_img = mlx_xpm_file_to_image(game->mlx, TEXTURE_S,
-			&game->wall[S].width, &game->wall[S].height);
-	game->wall[E].mlx_img = mlx_xpm_file_to_image(game->mlx, TEXTURE_E,
-			&game->wall[E].width, &game->wall[E].height);
-	game->wall[W].mlx_img = mlx_xpm_file_to_image(game->mlx, TEXTURE_W,
-			&game->wall[W].width, &game->wall[W].height);
-	if (!game->wall[N].mlx_img || !game->wall[S].mlx_img
-		|| !game->wall[E].mlx_img
-		|| !game->wall[W].mlx_img)
-		return (false);
 	return (true);
 }
 
