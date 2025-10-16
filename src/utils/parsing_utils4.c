@@ -6,7 +6,7 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 17:34:18 by pmachado          #+#    #+#             */
-/*   Updated: 2025/10/16 17:55:04 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/10/16 19:48:41 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,10 @@ int	parse_rgb(const char *line)
 
 	colors = ft_split(line, ',');
 	if (!colors || !colors[0] || !colors[1] || !colors[2] || colors[3])
-	{
-		free_rgb_parts(colors, NULL);
-		ft_end(15, NULL);
-	}
+		rgb_error(colors);
 	trimmed = get_trimmed_rgb(colors);
 	if (!trimmed)
-	{
-		free_rgb_parts(colors, NULL);
-		ft_end(15, NULL);
-	}
+		rgb_error(colors);
 	free_array(colors, 3);
 	r = ft_atoi(trimmed[0]);
 	g = ft_atoi(trimmed[1]);
@@ -68,19 +62,12 @@ static char	**get_trimmed_rgb(char **colors)
 
 	trimmed = malloc(sizeof(char *) * 3);
 	if (!trimmed)
-	{
-		free_rgb_parts(colors, NULL);
-		ft_end(15, NULL);
-
-	}
+		rgb_error(colors);
 	trimmed[0] = trim_and_check_digit(colors[0]);
 	trimmed[1] = trim_and_check_digit(colors[1]);
 	trimmed[2] = trim_and_check_digit(colors[2]);
 	if (!trimmed[0] || !trimmed[1] || !trimmed[2])
-	{
-		free_rgb_parts(NULL, trimmed);
-		ft_end(15, NULL);
-	}
+		rgb_error(colors);
 	return (trimmed);
 }
 

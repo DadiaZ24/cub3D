@@ -6,7 +6,7 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 13:53:41 by pmachado          #+#    #+#             */
-/*   Updated: 2025/10/16 19:03:45 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/10/16 20:12:54 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	find_player(t_game *game)
 				if (found)
 					ft_end(10, game);
 				set_spawn(game->scene, x, y, game->scene->map[y][x]);
+				printf("DEBUG Player spawn set at (%d, %d) facing %c\n", x, y, game->scene->map[y][x]);
 				game->scene->map[y][x] = '0';
 				found = true;
 			}
@@ -99,15 +100,11 @@ void	check_player_space(t_game *game)
 	x = game->scene->spawn.x;
 	y = game->scene->spawn.y;
 	map = game->scene->map;
-
-	// Prevent out-of-bounds access
 	if (y == 0 || x == 0
 		|| y == game->scene->map_size.y - 1
 		|| x == game->scene->map_size.x - 1)
 		ft_end(19, game);
-
 	if (map[y - 1][x] == '1' && map[y + 1][x] == '1'
 		&& map[y][x - 1] == '1' && map[y][x + 1] == '1')
 		ft_end(18, game);
 }
-

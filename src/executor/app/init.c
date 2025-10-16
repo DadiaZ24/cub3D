@@ -6,7 +6,7 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 17:43:31 by pmachado          #+#    #+#             */
-/*   Updated: 2025/10/16 17:35:59 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/10/16 20:19:03 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,10 @@ t_game	*ft_init_game(char *map_path)
 	ft_create_scene(map_path, game);
 	ft_init_mlx(game);
 	ft_load_textures(game);
+	printf("DEBUG North texture file: %s \n", game->scene->n_path);
+	printf("DEBUG South texture file: %s \n", game->scene->s_path);
+	printf("DEBUG West texture file: %s \n", game->scene->w_path);
+	printf("DEBUG East texture file: %s \n", game->scene->e_path);
 	init_player(game);
 	return (game);
 }

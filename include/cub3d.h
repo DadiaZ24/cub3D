@@ -6,7 +6,7 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:15:38 by ddias-fe          #+#    #+#             */
-/*   Updated: 2025/10/16 18:49:13 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/10/16 19:50:10 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,6 @@ typedef struct s_texture
 	double		texture_pos;
 }	t_texture;
 
-
 typedef struct s_raycast
 {
 	double		ray_x;
@@ -231,7 +230,6 @@ void		setup_raycast(t_game *game, int x);
 void		raycast(t_game *game);
 int			draw_loop(t_game *game);
 
-
 //VALIDATION
 bool		ft_validate_args(int ac, char **av);
 
@@ -297,11 +295,11 @@ void		ft_end(int nbr, t_game *g);
 void		free_all(t_game *g);
 void		free_scene(t_scene *scene);
 void		free_array(char **arr, int max);
+void		rgb_error(char **colors);
 int			ft_exit(t_game *g);
 
 //FREE UTILS
 // void	free_array(char **arr);
-
 
 void		put_pixel(t_game *game, int x, int y, int color);
 int			get_color(t_game *game, int x, int y, int i);

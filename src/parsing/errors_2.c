@@ -6,7 +6,7 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 13:03:34 by pmachado          #+#    #+#             */
-/*   Updated: 2025/10/16 15:41:56 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/10/16 19:49:34 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,12 @@ void	free_array(char **arr, int max)
 	while (i < max && arr[i])
 		free(arr[i++]);
 	free(arr);
+}
+
+void	rgb_error(char **colors)
+{
+	free_rgb_parts(colors, NULL);
+	ft_end(15, NULL);
 }
 
 void	free_rgb_parts(char **colors, char **trimmed)
