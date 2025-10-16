@@ -3,24 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   scene_check.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddias-fe <ddias-fe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 13:40:15 by pmachado          #+#    #+#             */
-/*   Updated: 2025/10/16 14:04:18 by ddias-fe         ###   ########.fr       */
+/*   Updated: 2025/10/16 18:20:35 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-// printf("[DEBUG] n_path: %s\n", scene->n_path);
-// printf("[DEBUG] s_path: %s\n", scene->s_path);
-// printf("[DEBUG] w_path: %s\n", scene->w_path);
-// printf("[DEBUG] e_path: %s\n", scene->e_path);
-// printf("[DEBUG] floor_color: %d\n", scene->floor_color);
-// printf("[DEBUG] sky_color: %d\n", scene->sky_color);
-// for (int j = 0; scene->map[j]; j++)
-// 	printf("[POST-MAP] %s\n", scene->map[j]);
-// printf("[DEBUG] Mapa Valido :)\n");
 void	check_scene(char *path, t_game *game)
 {
 	read_scene(path, game);
@@ -90,7 +81,7 @@ void	validate_elements(t_game *game)
 		trimmed = ft_strtrim(game->scene->raw_lines[i], " \t");
 		if (trimmed[0] != '\0')
 		{
-			if (ft_is_map_line(trimmed) && all_elements_found(game->scene))
+			if (ft_is_map_line(trimmed))
 			{
 				free(trimmed);
 				break ;

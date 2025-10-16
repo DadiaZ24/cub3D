@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddias-fe <ddias-fe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 17:43:31 by pmachado          #+#    #+#             */
-/*   Updated: 2025/10/16 14:06:42 by ddias-fe         ###   ########.fr       */
+/*   Updated: 2025/10/16 17:35:59 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,9 @@ t_game	*ft_init_game(char *map_path)
 	if (!game->mlx)
 		ft_end(5, NULL);
 	ft_create_scene(map_path, game);
-	printf("Parsing feito :)\n");
 	ft_init_mlx(game);
-	printf("MLX INICIALIZADO\n");
 	ft_load_textures(game);
-	printf("TEXTURES LOADED\n");
 	init_player(game);
-	printf("PLAYER INITED\n");
-
 	return (game);
 }
 

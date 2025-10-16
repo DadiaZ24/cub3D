@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddias-fe <ddias-fe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 20:23:43 by pmachado          #+#    #+#             */
-/*   Updated: 2025/10/16 14:10:19 by ddias-fe         ###   ########.fr       */
+/*   Updated: 2025/10/16 19:03:53 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,14 @@ static const char	*print_error_msg(int nbr)
 		"Empty file",
 		"Map not closed",
 		"Player not found",
-		"Invalid color",
+		"Invalid RGB input",
 		"Failed to load texture",
-		"Invalid path to texture"
+		"Invalid path to texture",
+		"Player spawn is fully enclosed by walls.",
+		"Player spawn is on the edge of the map."		
 	};
 
-	if (nbr < 1 || nbr > 17)
+	if (nbr < 1 || nbr > 19)
 		return ("Unknown error");
 	return (messages[nbr - 1]);
 }

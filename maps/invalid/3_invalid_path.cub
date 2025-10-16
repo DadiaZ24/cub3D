@@ -1,7 +1,7 @@
-NO maps/textures/n.xpm
-SO maps/textures/s.xpm
-WE maps/textures/w.xpm
-EA maps/textures/e.xpm
+NO textures/n.xpm
+SO path/n.xpm
+WE textures/w.xpm
+EA textures/e.xpm
 F 139,99,58
 C 171,154,137
 

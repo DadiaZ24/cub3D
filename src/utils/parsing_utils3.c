@@ -6,7 +6,7 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 13:52:23 by pmachado          #+#    #+#             */
-/*   Updated: 2025/10/12 21:21:54 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/10/16 17:45:36 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	parse_no(t_game *game, char *line)
 	if (!validate_texture_path(game->scene->n_path))
 	{
 		free(line);
-		ft_end(10, game);
+		ft_end(17, game);
 	}
 }
 
@@ -54,7 +54,7 @@ void	parse_so(t_game *game, char *line)
 	if (!validate_texture_path(game->scene->s_path))
 	{
 		free(line);
-		ft_end(10, game);
+		ft_end(17, game);
 	}
 }
 
@@ -68,7 +68,7 @@ void	parse_we(t_game *game, char *line)
 	if (!validate_texture_path(game->scene->w_path))
 	{
 		free(line);
-		ft_end(10, game);
+		ft_end(17, game);
 	}
 }
 
@@ -82,6 +82,6 @@ void	parse_ea(t_game *game, char *line)
 	if (!validate_texture_path(game->scene->e_path))
 	{
 		free(line);
-		ft_end(10, game);
+		ft_end(17, game);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:15:38 by ddias-fe          #+#    #+#             */
-/*   Updated: 2025/10/16 14:35:32 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/10/16 18:49:13 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,17 +118,17 @@ typedef enum e_map_char
 
 typedef struct s_position
 {
-	int						x;
-	int						y;
+	int			x;
+	int			y;
 }	t_position;
 
 typedef struct s_texture
 {
-	int		texture_x;
-	int		texture_y;
-	double	wall_x;
-	double	step;
-	double	texture_pos;
+	int			texture_x;
+	int			texture_y;
+	double		wall_x;
+	double		step;
+	double		texture_pos;
 }	t_texture;
 
 
@@ -156,59 +156,59 @@ typedef struct s_raycast
 
 typedef struct s_fill_data
 {
-	char	**map;
-	int		max_x;
-	int		max_y;
+	char		**map;
+	int			max_x;
+	int			max_y;
 }	t_fill_data;
 
 typedef struct s_scene
 {
-	char					**map;			//layout do mapa
-	char					**raw_lines;	// Copia das linhas .cub
-	t_position				map_size;		//largura e altura do mapa
-	t_position				spawn;			//posicao do spawn do player
-	char					player_dir;		//N,S,E ou W para raycast
-	char					*n_path;		//textura p MiniLibx 
-	char					*s_path;		//textura p MiniLibx
-	char					*e_path;		//textura p MiniLibx
-	char					*w_path;		//textura p MiniLibx
-	int						sky_color;
-	int						floor_color;
+	char		**map;			//layout do mapa
+	char		**raw_lines;	// Copia das linhas .cub
+	t_position	map_size;		//largura e altura do mapa
+	t_position	spawn;			//posicao do spawn do player
+	char		player_dir;		//N,S,E ou W para raycast
+	char		*n_path;		//textura p MiniLibx 
+	char		*s_path;		//textura p MiniLibx
+	char		*e_path;		//textura p MiniLibx
+	char		*w_path;		//textura p MiniLibx
+	int			sky_color;
+	int			floor_color;
 }	t_scene;
 
 typedef struct s_img
 {
-	void					*mlx_img;
-	char					*addr;
-	int						bpp;
-	int						line_len;
-	int						endian;
-	int						width;
-	int						height;
+	void		*mlx_img;
+	char		*addr;
+	int			bpp;
+	int			line_len;
+	int			endian;
+	int			width;
+	int			height;
 }	t_img;
 
 typedef struct s_player
 {
-	float	x;
-	float	y;
-	double	angle;
-	double	dir_x;
-	double	dir_y;
-	int		move_dir;
-	int		strafe_dir;
-	int		rotating;
+	float		x;
+	float		y;
+	double		angle;
+	double		dir_x;
+	double		dir_y;
+	int			move_dir;
+	int			strafe_dir;
+	int			rotating;
 }	t_player;
 
 typedef struct s_game
 {
-	t_scene					*scene;			//pointer para a struct do mapa
-	void					*mlx;			//instancia mlx
-	void					*window;		//janelinha
-	t_img					wall[4];		//carregar as texturas
-	t_img					game_img;
-	double					buffer;			//buffer de colisao
-	t_raycast				raycast;
-	t_player				player;			//struct do player
+	t_scene		*scene;			//pointer para a struct do mapa
+	void		*mlx;			//instancia mlx
+	void		*window;		//janelinha
+	t_img		wall[4];		//carregar as texturas
+	t_img		game_img;
+	double		buffer;			//buffer de colisao
+	t_raycast	raycast;
+	t_player	player;			//struct do player
 }	t_game;
 
 //________________________________________________________________
@@ -216,20 +216,20 @@ typedef struct s_game
 //|_______________________________________________________________|
 
 //EXECUTOR
-bool	init_game_data(t_game *game);
-void	init_player(t_game *game);
-void	get_player_angle(t_game *game, int x, int y);
-void	dda(t_game *game);
-void	calculate_distance(t_game *game);
-void	rotate(t_game *game, double angle);
-void	movement(t_game *game);
-void	move_front_right(t_game *game, double x, double y);
-void	move_back_left(t_game *game, double x, double y);
-int	key_press(int keycode, t_game *game);
-int	key_release(int keycode, t_game *game);
-void	setup_raycast(t_game *game, int x);
-void	raycast(t_game *game);
-int	draw_loop(t_game *game);
+bool		init_game_data(t_game *game);
+void		init_player(t_game *game);
+void		get_player_angle(t_game *game, int x, int y);
+void		dda(t_game *game);
+void		calculate_distance(t_game *game);
+void		rotate(t_game *game, double angle);
+void		movement(t_game *game);
+void		move_front_right(t_game *game, double x, double y);
+void		move_back_left(t_game *game, double x, double y);
+int			key_press(int keycode, t_game *game);
+int			key_release(int keycode, t_game *game);
+void		setup_raycast(t_game *game, int x);
+void		raycast(t_game *game);
+int			draw_loop(t_game *game);
 
 
 //VALIDATION
@@ -290,6 +290,7 @@ void		replace_spaces_with_1s(char **map);
 void		check_closed_map(t_game *game);
 char		**duplicate_map(t_game *game);
 void		flood_fill(t_fill_data *data, int x, int y, t_game *game);
+void		check_player_space(t_game *game);
 
 //ERROR
 void		ft_end(int nbr, t_game *g);
@@ -302,9 +303,9 @@ int			ft_exit(t_game *g);
 // void	free_array(char **arr);
 
 
-void	put_pixel(t_game *game, int x, int y, int color);
-int		get_color(t_game *game, int x, int y, int i);
-bool	render_background(t_game *game);
-int	draw_loop(t_game *game);
+void		put_pixel(t_game *game, int x, int y, int color);
+int			get_color(t_game *game, int x, int y, int i);
+bool		render_background(t_game *game);
+int			draw_loop(t_game *game);
 
 #endif
