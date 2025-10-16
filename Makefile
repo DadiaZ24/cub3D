@@ -42,7 +42,8 @@ PARSING = \
 				parsing_utils5.c \
 				parsing_utils6.c 
 
-EXECUTOR		= init.c 
+EXECUTOR		= init.c \
+				  init_2.c
 
 #UTILS			= free_utils.c
 

@@ -6,7 +6,7 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:13:55 by ddias-fe          #+#    #+#             */
-/*   Updated: 2025/10/09 16:38:43 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/10/16 11:37:21 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ int	main(int ac, char **av)
 {
 	t_game	*game;
 
-	printf("Ola.\n");
 	if (!ft_validate_args(ac, av))
 	{
 		printf("%s\n", ERROR_INVALID_ARGS);
@@ -99,7 +98,8 @@ int	main(int ac, char **av)
 		printf("Failed to initialize game\n");
 		exit(1);
 	}
-	printf("Game initialized and parsing was successful");
+	printf("Game initialized and parsing was successful\n");
+	ft_end(0, game);
 	// if(game != NULL)
 	// 	ft_start_game(game);
 	// clean_exit(game);	

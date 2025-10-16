@@ -6,13 +6,11 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 17:43:31 by pmachado          #+#    #+#             */
-/*   Updated: 2025/10/12 21:13:03 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/10/16 11:34:27 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-static void	load_texture(t_game *game, t_img *img, char *path);
 
 t_game	*ft_init_game(char *map_path)
 {
@@ -22,9 +20,7 @@ t_game	*ft_init_game(char *map_path)
 	game->scene = ft_create_scene(map_path, game);
 	printf("Parsing feito :)\n");
 	ft_init_mlx(game);
-	printf("mlx iniciada :) \n");
 	ft_load_textures(game);
-	printf("Texturas carregadas :) \n");
 	return (game);
 }
 
