@@ -6,7 +6,7 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 17:34:18 by pmachado          #+#    #+#             */
-/*   Updated: 2025/10/09 14:14:54 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/10/09 22:31:50 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,22 @@
 
 static char	**get_trimmed_rgb(char **colors);
 
-void	parse_colors(t_scene *scene, char *line)
+void	parse_colors(t_game *game, char *line)
 {
 	if (ft_strncmp(line, "F ", 2) == 0)
 	{
-		if (scene->floor_color != -1)
-			ft_end_scene(10, scene);
-		scene->floor_color = parse_rgb(line + 2);
+		if (game->scene->floor_color != -1)
+			ft_end(10, game);
+		game->scene->floor_color = parse_rgb(line + 2);
 	}
 	else if (ft_strncmp(line, "C ", 2) == 0)
 	{
-		if (scene->sky_color != -1)
-			ft_end_scene(10, scene);
-		scene->sky_color = parse_rgb(line + 2);
+		if (game->scene->sky_color != -1)
+			ft_end(10, game);
+		game->scene->sky_color = parse_rgb(line + 2);
 	}
 	else
-		ft_end_scene(15, scene);
+		ft_end(15, game);
 }
 
 int	parse_rgb(const char *line)

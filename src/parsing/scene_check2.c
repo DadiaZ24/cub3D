@@ -6,18 +6,20 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 13:53:41 by pmachado          #+#    #+#             */
-/*   Updated: 2025/10/09 14:15:17 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/10/12 21:19:25 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	validate_map_characters(char **map)
+void	validate_map_characters(t_game *game)
 {
-	int	y;
-	int	x;
-	int	total;
+	int		y;
+	int		x;
+	int		total;
+	char	**map;
 
+	map = game->scene->map;
 	total = 0;
 	y = 0;
 	while (map[y])
@@ -26,7 +28,7 @@ void	validate_map_characters(char **map)
 		while (map[y][x])
 		{
 			if (!is_valid_map_char(map[y][x]))
-				ft_end(7, NULL);
+				ft_end(7, game);
 			total++;
 			x++;
 		}
@@ -34,13 +36,13 @@ void	validate_map_characters(char **map)
 	}
 }
 
-void	validate_map(t_scene *scene)
+void	validate_map(t_game *game)
 {
-	find_player(scene);
-	check_closed_map(scene);
+	find_player(game);
+	check_closed_map(game);
 }
 
-void	find_player(t_scene *scene)
+void	find_player(t_game *game)
 {
 	int		y;
 	int		x;
@@ -48,17 +50,17 @@ void	find_player(t_scene *scene)
 
 	found = false;
 	y = 0;
-	while (scene->map[y])
+	while (game->scene->map[y])
 	{
 		x = 0;
-		while (scene->map[y][x])
+		while (game->scene->map[y][x])
 		{
-			if (ft_strchr("NSEW", scene->map[y][x]))
+			if (ft_strchr("NSEW", game->scene->map[y][x]))
 			{
 				if (found)
-					ft_end_scene(10, scene);
-				set_spawn(scene, x, y, scene->map[y][x]);
-				scene->map[y][x] = '0';
+					ft_end(10, game);
+				set_spawn(game->scene, x, y, game->scene->map[y][x]);
+				game->scene->map[y][x] = '0';
 				found = true;
 			}
 			x++;
@@ -66,23 +68,23 @@ void	find_player(t_scene *scene)
 		y++;
 	}
 	if (!found)
-		ft_end_scene(14, scene);
+		ft_end(14, game);
 }
 
-void	check_closed_map(t_scene *scene)
+void	check_closed_map(t_game *game)
 {
 	char		**copy;
 	int			x;
 	int			y;
 	t_fill_data	data;
 
-	x = scene->spawn.x;
-	y = scene->spawn.y;
-	replace_spaces_with_1s(scene->map);
-	copy = duplicate_map(scene);
+	x = game->scene->spawn.x;
+	y = game->scene->spawn.y;
+	replace_spaces_with_1s(game->scene->map);
+	copy = duplicate_map(game);
 	data.map = copy;
-	data.max_x = scene->map_size.x;
-	data.max_y = scene->map_size.y;
-	flood_fill(&data, x, y);
-	free_array(copy, scene->map_size.y);
+	data.max_x = game->scene->map_size.x;
+	data.max_y = game->scene->map_size.y;
+	flood_fill(&data, x, y, game);
+	free_array(copy, game->scene->map_size.y);
 }

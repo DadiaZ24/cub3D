@@ -6,7 +6,7 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:15:38 by ddias-fe          #+#    #+#             */
-/*   Updated: 2025/10/09 16:44:34 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/10/12 21:40:54 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,7 @@
 ===========\n\n"
 
 //------------------- ERROR MESSAGES
-#define ERROR BLUE TOP_HUD RED "Error:\n" DEFAULT_COLOR \
-"%s\n\n" BLUE BOT_HUD DEFAULT_COLOR
-
+# define ERROR_MESSAGE "Error:\n%s\n\n"
 # define ERROR_FILE_PATH_INVALID "Invalid file path."
 # define ERROR_FILE_EXTENSION "Invalid file extension. Expected .cub"
 # define ERROR_INVALID_ARGS "Invalid argument. Usage: ./cub3D [map]"
@@ -93,7 +91,8 @@
 //|_____________________________[ENUMS]___________________________|
 //|_______________________________________________________________|
 
-typedef enum {
+typedef enum e_map_char
+{
 	ZERO = '0',
 	ONE = '1',
 	NORTH = 'N',
@@ -102,7 +101,7 @@ typedef enum {
 	WEST = 'W',
 	SPACE = ' ',
 	TAB = '	'
-}	map_char;
+}	t_map_char;
 
 //________________________________________________________________
 //|________________________[DATA STRUCTURES]______________________|
@@ -123,15 +122,15 @@ typedef struct s_fill_data
 
 typedef struct s_scene
 {
-	char					**map; 			//layout do mapa passa para esta struct
-	char					**raw_lines;	// Copia das linhas do ficheiro .cub
+	char					**map;			//layout do mapa
+	char					**raw_lines;	// Copia das linhas .cub
 	t_position				map_size;		//largura e altura do mapa
 	t_position				spawn;			//posicao do spawn do player
-	char					player_dir;		//N,S,E ou W para a direcao do raycast
-	char					*n_path;		//textura desta direcao para passar p MiniLibx 
-	char					*s_path;		//textura desta direcao para passar p MiniLibx
-	char					*e_path;		//textura desta direcao para passar p MiniLibx
-	char					*w_path;		//textura desta direcao para passar p MiniLibx
+	char					player_dir;		//N,S,E ou W para raycast
+	char					*n_path;		//textura p MiniLibx 
+	char					*s_path;		//textura p MiniLibx
+	char					*e_path;		//textura p MiniLibx
+	char					*w_path;		//textura p MiniLibx
 	int						sky_color;
 	int						floor_color;
 }	t_scene;
@@ -152,7 +151,7 @@ typedef struct s_game
 	t_scene					*scene;			//pointer para a struct do mapa
 	void					*mlx;			//instancia mlx
 	void					*window;		//janelinha
-	t_img					wall[4];		//carregar as imagens das texturas para renderizar dps
+	t_img					wall[4];		//carregar as texturas
 	t_img					game_img;
 }	t_game;
 
@@ -168,7 +167,6 @@ bool	executor(t_game *game, t_data *data);
 //bool	init_game_data(t_game *game, t_data *data);
 void	put_pixel(t_game *game, int x, int y, int color); */
 
-
 //VALIDATION
 bool		ft_validate_args(int ac, char **av);
 
@@ -176,17 +174,17 @@ bool		ft_validate_args(int ac, char **av);
 t_game		*ft_init_game(char *map_path);
 t_game		*ft_create_game(void);
 void		ft_init_mlx(t_game *game);
-t_scene		*ft_create_scene(char *path);
+t_scene		*ft_create_scene(char *path, t_game *game);
 void		ft_load_textures(t_game *game);
 
 //PARSING
-void		check_scene(char *path, t_scene *scene);
-void		read_scene(char *path, t_scene *scene);
-void		check_for_empty(t_scene *scene);
-void		separate_map(t_scene *scene);
-void		validate_elements(t_scene *scene);
-void		validate_map_characters(char **map);
-void		validate_map(t_scene *scene);
+void		check_scene(char *path, t_game *game);
+void		read_scene(char *path, t_game *game);
+void		check_for_empty(t_game *game);
+void		separate_map(t_game *game);
+void		validate_elements(t_game *game);
+void		validate_map_characters(t_game *game);
+void		validate_map(t_game *game);
 
 			//----------read_scene-----------//
 int			ft_count_lines(char *path);
@@ -195,44 +193,45 @@ char		*spaces_for_tabs(char *line);
 int			has_tabs(const char *line);
 void		change_tabs(const char *line, char *new_line);
 bool		all_elements_found(t_scene *scene);
+
 			//----------separate_map---------//
 int			get_map_start_index(char **lines);
 int			count_map_lines(char **lines);
-void		copy_map_lines(t_scene *scene, int start, int count);
+void		copy_map_lines(t_game *game, int start, int count);
 int			ft_get_max_line_length(char **map);
 bool		ft_is_map_line(char *line);
+
 			//----------validate_elements---------//
-void		parse_textures(t_scene *scene, char *line);
-void		parse_no(t_scene *scene, char *line);
-void		parse_so(t_scene *scene, char *line);
-void		parse_we(t_scene *scene, char *line);
-void		parse_ea(t_scene *scene, char *line);
-void		parse_colors(t_scene *scene, char *line);
+void		parse_textures(t_game *game, char *line);
+void		parse_no(t_game *game, char *line);
+void		parse_so(t_game *game, char *line);
+void		parse_we(t_game *game, char *line);
+void		parse_ea(t_game *game, char *line);
+void		parse_colors(t_game *game, char *line);
 int			parse_rgb(const char *line);
 char		*trim_and_check_digit(char *str);
 void		free_rgb_parts(char **arr, char **trimmed);
 bool		ft_isdigit_str(char *str);
 bool		validate_texture_path(char *path);
+
 			//----------validate_map_chars-------//
 bool		is_valid_map_char(char c);
+
 			//----------validate_map-------------//
 //void		pad_map(t_scene *scene);
-void		find_player(t_scene *scene);
+void		find_player(t_game *game);
 void		set_spawn(t_scene *scene, int x, int y, char dir);
 void		replace_spaces_with_1s(char **map);
-void		check_closed_map(t_scene *scene);
-char		**duplicate_map(t_scene *scene);
-void		flood_fill(t_fill_data *data, int x, int y);
-
+void		check_closed_map(t_game *game);
+char		**duplicate_map(t_game *game);
+void		flood_fill(t_fill_data *data, int x, int y, t_game *game);
 
 //ERROR
-void	ft_end(int nbr, t_game *g);
-void	ft_end_scene(int nbr, t_scene *scene);
-void	ft_end_scene_full(int nbr, t_scene *scene, t_game *g);
-void	free_all(t_game *g);
-void	free_scene(t_scene *scene);
-void	free_array(char **arr, int max);
-int		ft_exit(t_game *g);
+void		ft_end(int nbr, t_game *g);
+void		free_all(t_game *g);
+void		free_scene(t_scene *scene);
+void		free_array(char **arr, int max);
+int			ft_exit(t_game *g);
 
 //FREE UTILS
 // void	free_array(char **arr);

@@ -6,7 +6,7 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 22:54:28 by pmachado          #+#    #+#             */
-/*   Updated: 2025/10/09 12:26:39 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/10/12 21:22:13 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,16 @@ void	set_spawn(t_scene *scene, int x, int y, char dir)
 	printf("[DEBUG] Player spawn: (%d, %d), facing '%c'\n", x, y, dir);
 }
 
-char	**duplicate_map(t_scene *scene)
+char	**duplicate_map(t_game *game)
 {
 	char	**copy;
 	int		i;
+	t_scene	*scene;
 
+	scene = game->scene;
 	copy = malloc(sizeof(char *) * (scene->map_size.y + 1));
 	if (!copy)
-		return (NULL);
+		ft_end(3, game);
 	i = 0;
 	while (i < scene->map_size.y)
 	{
@@ -43,7 +45,7 @@ char	**duplicate_map(t_scene *scene)
 		if (!copy[i])
 		{
 			free_array(copy, i);
-			ft_end(6, NULL);
+			ft_end(6, game);
 		}
 		i++;
 	}
@@ -51,19 +53,19 @@ char	**duplicate_map(t_scene *scene)
 	return (copy);
 }
 
-void	flood_fill(t_fill_data *data, int x, int y)
+void	flood_fill(t_fill_data *data, int x, int y, t_game *game)
 {
 	if (y < 0 || y >= data->max_y || x < 0 || x >= data->max_x)
-		ft_end(7, NULL);
+		ft_end(7, game);
 	if (data->map[y][x] == ' ' || data->map[y][x] == '\0')
-		ft_end(13, NULL);
+		ft_end(13, game);
 	if (data->map[y][x] == '1' || data->map[y][x] == 'F')
 		return ;
 	data->map[y][x] = 'F';
-	flood_fill(data, x + 1, y);
-	flood_fill(data, x - 1, y);
-	flood_fill(data, x, y + 1);
-	flood_fill(data, x, y - 1);
+	flood_fill(data, x + 1, y, game);
+	flood_fill(data, x - 1, y, game);
+	flood_fill(data, x, y + 1, game);
+	flood_fill(data, x, y - 1, game);
 }
 
 bool	validate_texture_path(char *path)

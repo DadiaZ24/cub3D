@@ -6,7 +6,7 @@
 /*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 13:03:34 by pmachado          #+#    #+#             */
-/*   Updated: 2025/06/25 13:20:56 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/10/12 21:17:54 by pmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	free_array(char **arr, int max)
 		free(arr[i++]);
 	free(arr);
 }
+
 void	free_rgb_parts(char **colors, char **trimmed)
 {
 	if (colors)
@@ -34,7 +35,6 @@ void	free_rgb_parts(char **colors, char **trimmed)
 	}
 	exit(1);
 }
-
 
 int	ft_exit(t_game *g)
 {
