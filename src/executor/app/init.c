@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: ddias-fe <ddias-fe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 17:43:31 by pmachado          #+#    #+#             */
-/*   Updated: 2025/10/16 11:34:27 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/10/16 14:06:42 by ddias-fe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,18 @@ t_game	*ft_init_game(char *map_path)
 	t_game	*game;
 
 	game = ft_create_game();
-	game->scene = ft_create_scene(map_path, game);
+	game->mlx = mlx_init();
+	if (!game->mlx)
+		ft_end(5, NULL);
+	ft_create_scene(map_path, game);
 	printf("Parsing feito :)\n");
 	ft_init_mlx(game);
+	printf("MLX INICIALIZADO\n");
 	ft_load_textures(game);
+	printf("TEXTURES LOADED\n");
+	init_player(game);
+	printf("PLAYER INITED\n");
+
 	return (game);
 }
 
@@ -34,6 +42,7 @@ t_game	*ft_create_game(void)
 	game->scene = NULL;
 	game->mlx = NULL;
 	game->window = NULL;
+	game->buffer = 0.1;
 	return (game);
 }
 
@@ -44,9 +53,9 @@ t_scene	*ft_create_scene(char *path, t_game *game)
 	scene = ft_calloc(1, sizeof(t_scene));
 	if (!scene)
 		ft_end(3, game);
+	game->scene = scene;
 	scene->floor_color = -1;
 	scene->sky_color = -1;
-	game->scene = scene;
 	check_scene(path, game);
 	return (scene);
 }
@@ -56,9 +65,6 @@ void	ft_init_mlx(t_game *game)
 	int	i;
 
 	i = 0;
-	game->mlx = mlx_init();
-	if (!game->mlx)
-		ft_end(5, NULL);
 	game->game_img.mlx_img = NULL;
 	game->game_img.addr = NULL;
 	game->game_img.bpp = 0;

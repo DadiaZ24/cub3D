@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: ddias-fe <ddias-fe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:15:38 by ddias-fe          #+#    #+#             */
-/*   Updated: 2025/10/12 21:40:54 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/10/16 12:53:40 by ddias-fe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@
 # include <string.h>
 # include <unistd.h>
 # include <stddef.h>
+# include <math.h>
+# include <limits.h>
 
 //________________________________________________________________
 //|_________________________[DEFINE COLORS]_______________________|
@@ -50,7 +52,7 @@
 ===========\n\n"
 
 //------------------- ERROR MESSAGES
-# define ERROR_MESSAGE "Error:\n%s\n\n"
+# define ERROR "\033[0;31mError:\n\033[0m%s\n\n"
 # define ERROR_FILE_PATH_INVALID "Invalid file path."
 # define ERROR_FILE_EXTENSION "Invalid file extension. Expected .cub"
 # define ERROR_INVALID_ARGS "Invalid argument. Usage: ./cub3D [map]"
@@ -86,6 +88,13 @@
 # define S 1
 # define E 2
 # define W 3
+# define RES 64
+# define LEFT 65361
+# define RIGHT 65361
+# define PI 3.14159265359
+# define ROTATE_SPEED 0.05
+# define MOVE_SPEED 0.05
+# define FOV 0.66
 
 //________________________________________________________________
 //|_____________________________[ENUMS]___________________________|
@@ -112,6 +121,38 @@ typedef struct s_position
 	int						x;
 	int						y;
 }	t_position;
+
+typedef struct s_texture
+{
+	int		texture_x;
+	int		texture_y;
+	double	wall_x;
+	double	step;
+	double	texture_pos;
+}	t_texture;
+
+
+typedef struct s_raycast
+{
+	double		ray_x;
+	double		ray_y;
+	double		side_x;
+	double		side_y;
+	double		delta_x;
+	double		delta_y;
+	double		step_x;
+	double		step_y;
+	double		perp_wall_dist;
+	bool		hit;
+	bool		side;
+	int			map_x;
+	int			map_y;
+	int			line_height;
+	int			start;
+	int			end;
+	int			wall_dir;
+	t_texture	tex;
+}	t_raycast;
 
 typedef struct s_fill_data
 {
@@ -146,6 +187,18 @@ typedef struct s_img
 	int						height;
 }	t_img;
 
+typedef struct s_player
+{
+	float	x;
+	float	y;
+	double	angle;
+	double	dir_x;
+	double	dir_y;
+	int		move_dir;
+	int		strafe_dir;
+	int		rotating;
+}	t_player;
+
 typedef struct s_game
 {
 	t_scene					*scene;			//pointer para a struct do mapa
@@ -153,19 +206,32 @@ typedef struct s_game
 	void					*window;		//janelinha
 	t_img					wall[4];		//carregar as texturas
 	t_img					game_img;
+	double					buffer;			//buffer de colisao
+	t_raycast				raycast;
+	t_player				player;			//struct do player
 }	t_game;
 
 //________________________________________________________________
 //|______________________[FUNCTION PROTOTYPES]____________________|
 //|_______________________________________________________________|
 
-/* //EXECUTOR
-bool	render_background(t_game *game);
-int		render(t_game *game);
-bool	executor(t_game *game, t_data *data);
-//bool	get_walls(t_game *game);
-//bool	init_game_data(t_game *game, t_data *data);
-void	put_pixel(t_game *game, int x, int y, int color); */
+//EXECUTOR
+bool	init_game_data(t_game *game);
+bool	get_walls(t_game *game);
+void	init_player(t_game *game);
+void	get_player_angle(t_game *game, int x, int y);
+void	dda(t_game *game);
+void	calculate_distance(t_game *game);
+void	rotate(t_game *game, double angle);
+void	movement(t_game *game);
+void	move_front_right(t_game *game, double x, double y);
+void	move_back_left(t_game *game, double x, double y);
+int	key_press(int keycode, t_game *game);
+int	key_release(int keycode, t_game *game);
+void	setup_raycast(t_game *game, int x);
+void	raycast(t_game *game);
+int	draw_loop(t_game *game);
+
 
 //VALIDATION
 bool		ft_validate_args(int ac, char **av);
@@ -235,5 +301,11 @@ int			ft_exit(t_game *g);
 
 //FREE UTILS
 // void	free_array(char **arr);
+
+
+void	put_pixel(t_game *game, int x, int y, int color);
+int		get_color(t_game *game, int x, int y, int i);
+bool	render_background(t_game *game);
+int	draw_loop(t_game *game);
 
 #endif

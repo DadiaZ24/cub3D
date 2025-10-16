@@ -43,9 +43,15 @@ PARSING = \
 				parsing_utils6.c 
 
 EXECUTOR		= init.c \
-				  init_2.c
-
-#UTILS			= free_utils.c
+				  init_2.c \
+				  init_3.c \
+				  dda.c \
+				  movement.c \
+				  movement2.c \
+				  player.c \
+				  raycasting.c \
+				  render.c \
+				  render_utils.c
 
 # _______________________________________________________________
 #|___________________________[SRC FILES]_________________________|
@@ -107,7 +113,7 @@ fclean: clean
 re: 			fclean all
 
 valgrind: 
-	@valgrind --leak-check=full -s --show-leak-kinds=all --track-fds=yes ./$(NAME)
+	@valgrind --leak-check=full -s --show-leak-kinds=all --track-fds=yes ./$(NAME) maps/valid_2.cub
 
 gdb:
 	gdb -tui ./$(NAME)
