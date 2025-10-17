@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: ddias-fe <ddias-fe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/12 21:12:27 by pmachado          #+#    #+#             */
-/*   Updated: 2025/10/16 14:35:29 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/10/17 11:06:29 by ddias-fe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,23 +58,12 @@ bool	init_game_data(t_game *game)
 
 void	init_player(t_game *game)
 {
-	int	y;
-	int	x;
-
-	y = -1;
 	game->player.rotating = 0;
 	game->player.move_dir = 0;
 	game->player.strafe_dir = 0;
 	game->player.x = game->scene->spawn.x + 0.5;
 	game->player.y = game->scene->spawn.y + 0.5;
-	get_player_angle(game, game->scene->spawn.x, game->scene->spawn.y);
+	get_player_angle(game);
 	game->player.dir_x = cos(game->player.angle);
 	game->player.dir_y = sin(game->player.angle);
-	while (game->scene->map[++y])
-	{
-		x = -1;
-		while (game->scene->map[y][++x])
-		{
-		}
-	}
 }

@@ -3,18 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   dda.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddias-fe <ddias-fe@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: ddias-fe <ddias-fe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 14:15:44 by ddias-fe          #+#    #+#             */
-/*   Updated: 2025/10/05 14:15:44 by ddias-fe         ###   ########.fr       */
+/*   Updated: 2025/10/17 11:21:23 by ddias-fe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+bool test = true;
 
 static void	dda_helper(t_game *game)
 {
-	if (game->raycast.side_x < game->raycast.side_y)
+	if (test)
+		printf("sideX: %f\nsideY: %f\n", game->raycast.side_x, game->raycast.side_y);
+	test = false;
+		if (game->raycast.side_x < game->raycast.side_y)
 	{
 		game->raycast.side_x += game->raycast.delta_x;
 		game->raycast.map_x += game->raycast.step_x;
@@ -33,16 +37,16 @@ static void	dda_hit(t_game *game)
 	if (!game->raycast.side)
 	{
 		if (game->raycast.ray_x > 0)
-			game->raycast.wall_dir = W;
-		else
 			game->raycast.wall_dir = E;
+		else
+			game->raycast.wall_dir = W;
 	}
 	else
 	{
 		if (game->raycast.ray_y > 0)
-			game->raycast.wall_dir = N;
-		else
 			game->raycast.wall_dir = S;
+		else
+			game->raycast.wall_dir = N;
 	}
 }
 

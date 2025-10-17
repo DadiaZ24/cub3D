@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: ddias-fe <ddias-fe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:15:38 by ddias-fe          #+#    #+#             */
-/*   Updated: 2025/10/16 19:50:10 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/10/17 11:05:35 by ddias-fe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,7 +217,7 @@ typedef struct s_game
 //EXECUTOR
 bool		init_game_data(t_game *game);
 void		init_player(t_game *game);
-void		get_player_angle(t_game *game, int x, int y);
+void		get_player_angle(t_game *game);
 void		dda(t_game *game);
 void		calculate_distance(t_game *game);
 void		rotate(t_game *game, double angle);
