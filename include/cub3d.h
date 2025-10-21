@@ -6,7 +6,7 @@
 /*   By: ddias-fe <ddias-fe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:15:38 by ddias-fe          #+#    #+#             */
-/*   Updated: 2025/10/17 11:05:35 by ddias-fe         ###   ########.fr       */
+/*   Updated: 2025/10/21 14:54:23 by ddias-fe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,6 +173,7 @@ typedef struct s_scene
 	char		*w_path;		//textura p MiniLibx
 	int			sky_color;
 	int			floor_color;
+	t_fill_data	data;
 }	t_scene;
 
 typedef struct s_img
@@ -248,6 +249,7 @@ void		separate_map(t_game *game);
 void		validate_elements(t_game *game);
 void		validate_map_characters(t_game *game);
 void		validate_map(t_game *game);
+void		free_duplicate_map(char **arr);
 
 			//----------read_scene-----------//
 int			ft_count_lines(char *path);
@@ -287,7 +289,7 @@ void		set_spawn(t_scene *scene, int x, int y, char dir);
 void		replace_spaces_with_1s(char **map);
 void		check_closed_map(t_game *game);
 char		**duplicate_map(t_game *game);
-void		flood_fill(t_fill_data *data, int x, int y, t_game *game);
+void		flood_fill(int x, int y, t_game *game);
 void		check_player_space(t_game *game);
 
 //ERROR

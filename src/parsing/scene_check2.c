@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene_check2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: ddias-fe <ddias-fe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 13:53:41 by pmachado          #+#    #+#             */
-/*   Updated: 2025/10/16 20:12:54 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/10/21 14:53:55 by ddias-fe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,16 +77,15 @@ void	check_closed_map(t_game *game)
 	char		**copy;
 	int			x;
 	int			y;
-	t_fill_data	data;
 
 	x = game->scene->spawn.x;
 	y = game->scene->spawn.y;
 	replace_spaces_with_1s(game->scene->map);
 	copy = duplicate_map(game);
-	data.map = copy;
-	data.max_x = game->scene->map_size.x;
-	data.max_y = game->scene->map_size.y;
-	flood_fill(&data, x, y, game);
+	game->scene->data.map = copy;
+	game->scene->data.max_x = game->scene->map_size.x;
+	game->scene->data.max_y = game->scene->map_size.y;
+	flood_fill(x, y, game);
 	free_array(copy, game->scene->map_size.y);
 }
 

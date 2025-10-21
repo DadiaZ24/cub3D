@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors_2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: ddias-fe <ddias-fe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 13:03:34 by pmachado          #+#    #+#             */
-/*   Updated: 2025/10/16 19:49:34 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/10/21 14:53:03 by ddias-fe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,16 @@ int	ft_exit(t_game *g)
 {
 	free_all(g);
 	exit(EXIT_SUCCESS);
+}
+
+void	free_duplicate_map(char **arr)
+{
+	int	i;
+
+	i = 0;
+	if (!arr)
+		return ;
+	while (arr[i])
+		free(arr[i++]);
+	free(arr);
 }

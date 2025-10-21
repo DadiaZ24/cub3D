@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils5.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pmachado <pmachado@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: ddias-fe <ddias-fe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 22:54:28 by pmachado          #+#    #+#             */
-/*   Updated: 2025/10/16 17:27:08 by pmachado         ###   ########.fr       */
+/*   Updated: 2025/10/21 15:05:16 by ddias-fe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,19 +52,28 @@ char	**duplicate_map(t_game *game)
 	return (copy);
 }
 
-void	flood_fill(t_fill_data *data, int x, int y, t_game *game)
+void	flood_fill(int x, int y, t_game *game)
 {
-	if (y < 0 || y >= data->max_y || x < 0 || x >= data->max_x)
+	if (y < 0 || y >= game->scene->data.max_y || x < 0
+		|| x >= game->scene->data.max_x)
+	{
+		free_duplicate_map(game->scene->data.map);
 		ft_end(7, game);
-	if (data->map[y][x] == ' ' || data->map[y][x] == '\0')
+	}
+	if (game->scene->data.map[y][x] == ' '
+		|| game->scene->data.map[y][x] == '\0')
+	{
+		free_duplicate_map(game->scene->data.map);
 		ft_end(13, game);
-	if (data->map[y][x] == '1' || data->map[y][x] == 'F')
+	}
+	if (game->scene->data.map[y][x] == '1'
+		|| game->scene->data.map[y][x] == 'F')
 		return ;
-	data->map[y][x] = 'F';
-	flood_fill(data, x + 1, y, game);
-	flood_fill(data, x - 1, y, game);
-	flood_fill(data, x, y + 1, game);
-	flood_fill(data, x, y - 1, game);
+	game->scene->data.map[y][x] = 'F';
+	flood_fill(x + 1, y, game);
+	flood_fill(x - 1, y, game);
+	flood_fill(x, y + 1, game);
+	flood_fill(x, y - 1, game);
 }
 
 bool	validate_texture_path(char *path)

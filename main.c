@@ -6,7 +6,7 @@
 /*   By: ddias-fe <ddias-fe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:13:55 by ddias-fe          #+#    #+#             */
-/*   Updated: 2025/10/16 14:17:43 by ddias-fe         ###   ########.fr       */
+/*   Updated: 2025/10/21 14:27:46 by ddias-fe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ int	main(int ac, char **av)
 		printf("Failed to initialize game\n");
 		exit(1);
 	}
-	printf("Game initialized and parsing was successful\n");
 	init_game_data(game);
 	mlx_loop(game->mlx);
 	return (0);
